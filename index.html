@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreConsulta - Triaje Digital</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🏥 PreConsulta</h1>
+            <p class="subtitle">Sistema de Triaje Digital</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="welcome" class="section">
+            <h2>Bienvenido al Sistema de Triaje Digital</h2>
+            <p>Este sistema está diseñado para optimizar y simplificar el tiempo de atención en hospitales mediante una evaluación preliminar de síntomas.</p>
+            <div class="info-cards">
+                <div class="card">
+                    <h3>⏱️ Ahorra Tiempo</h3>
+                    <p>Reduce los tiempos de espera clasificando casos por urgencia</p>
+                </div>
+                <div class="card">
+                    <h3>📋 Eficiencia</h3>
+                    <p>Optimiza la gestión de recursos hospitalarios</p>
+                </div>
+                <div class="card">
+                    <h3>🎯 Precisión</h3>
+                    <p>Sistema basado en protocolos médicos establecidos</p>
+                </div>
+            </div>
+            <button id="startTriageBtn" class="btn-primary">Iniciar Evaluación</button>
+        </section>
+
+        <section id="triageForm" class="section hidden">
+            <h2>Evaluación de Síntomas</h2>
+            <p class="warning">⚠️ Este sistema NO sustituye la atención médica profesional. En caso de emergencia, llame al 112.</p>
+            
+            <form id="triageFormElement">
+                <div class="form-group">
+                    <label for="age">Edad del paciente:</label>
+                    <input type="number" id="age" name="age" min="0" max="120" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Síntomas principales (seleccione todos los que apliquen):</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="symptoms" value="chest-pain"> Dolor en el pecho</label>
+                        <label><input type="checkbox" name="symptoms" value="difficulty-breathing"> Dificultad para respirar</label>
+                        <label><input type="checkbox" name="symptoms" value="severe-headache"> Dolor de cabeza severo</label>
+                        <label><input type="checkbox" name="symptoms" value="high-fever"> Fiebre alta (>39°C)</label>
+                        <label><input type="checkbox" name="symptoms" value="loss-consciousness"> Pérdida de consciencia</label>
+                        <label><input type="checkbox" name="symptoms" value="severe-bleeding"> Sangrado severo</label>
+                        <label><input type="checkbox" name="symptoms" value="abdominal-pain"> Dolor abdominal intenso</label>
+                        <label><input type="checkbox" name="symptoms" value="confusion"> Confusión o desorientación</label>
+                        <label><input type="checkbox" name="symptoms" value="moderate-fever"> Fiebre moderada</label>
+                        <label><input type="checkbox" name="symptoms" value="cough"> Tos persistente</label>
+                        <label><input type="checkbox" name="symptoms" value="nausea"> Náuseas o vómitos</label>
+                        <label><input type="checkbox" name="symptoms" value="mild-pain"> Dolor leve</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">Duración de los síntomas:</label>
+                    <select id="duration" name="duration" required>
+                        <option value="">Seleccione...</option>
+                        <option value="hours">Menos de 24 horas</option>
+                        <option value="days">1-3 días</option>
+                        <option value="week">Más de una semana</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="painLevel">Nivel de dolor (0-10):</label>
+                    <input type="range" id="painLevel" name="painLevel" min="0" max="10" value="0">
+                    <span id="painLevelValue">0</span>
+                </div>
+
+                <div class="form-group">
+                    <label>¿Tiene alguna de estas condiciones preexistentes?</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
+                        <label><input type="checkbox" name="conditions" value="hypertension"> Hipertensión</label>
+                        <label><input type="checkbox" name="conditions" value="heart-disease"> Enfermedad cardíaca</label>
+                        <label><input type="checkbox" name="conditions" value="respiratory"> Enfermedad respiratoria</label>
+                        <label><input type="checkbox" name="conditions" value="immunosuppressed"> Inmunosupresión</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalInfo">Información adicional:</label>
+                    <textarea id="additionalInfo" name="additionalInfo" rows="4" placeholder="Describa cualquier otro síntoma o información relevante..."></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" id="backBtn" class="btn-secondary">Volver</button>
+                    <button type="submit" class="btn-primary">Evaluar Urgencia</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="results" class="section hidden">
+            <h2>Resultado de la Evaluación</h2>
+            <div id="resultContent"></div>
+            <button id="newEvaluationBtn" class="btn-primary">Nueva Evaluación</button>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 PreConsulta - Sistema de Triaje Digital</p>
+            <p class="disclaimer">Este sistema es una herramienta de apoyo y no sustituye el criterio médico profesional.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

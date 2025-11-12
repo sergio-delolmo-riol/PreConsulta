@@ -211,36 +211,106 @@ function displayResults(result) {
             break;
     }
     
-    const recommendationsList = recommendations.map(r => `<li>${r}</li>`).join('');
+    // Clear existing content
+    resultContent.innerHTML = '';
     
-    resultContent.innerHTML = `
-        <div class="result-card ${result.color}">
-            <div class="icon">${icon}</div>
-            <h3>${title}</h3>
-            <p style="font-size: 1.2rem; margin-top: 1rem;">${message}</p>
-        </div>
-        
-        <div class="recommendation">
-            <h4>Recomendaciones:</h4>
-            <ul>
-                ${recommendationsList}
-            </ul>
-        </div>
-        
-        <div class="recommendation">
-            <h4>Resumen de su evaluación:</h4>
-            <p><strong>Edad:</strong> ${result.data.age} años</p>
-            <p><strong>Nivel de dolor:</strong> ${result.data.painLevel}/10</p>
-            <p><strong>Duración:</strong> ${getDurationText(result.data.duration)}</p>
-            <p><strong>Síntomas reportados:</strong> ${result.data.symptoms.length}</p>
-            ${result.data.conditions.length > 0 ? `<p><strong>Condiciones preexistentes:</strong> ${result.data.conditions.length}</p>` : ''}
-        </div>
-        
-        <div class="warning">
-            ⚠️ <strong>Importante:</strong> Esta evaluación es orientativa y no sustituye el diagnóstico médico profesional. 
-            Si tiene dudas o sus síntomas empeoran, busque atención médica inmediata.
-        </div>
-    `;
+    // Create result card
+    const resultCard = document.createElement('div');
+    resultCard.className = `result-card ${result.color}`;
+    
+    const iconDiv = document.createElement('div');
+    iconDiv.className = 'icon';
+    iconDiv.textContent = icon;
+    
+    const titleH3 = document.createElement('h3');
+    titleH3.textContent = title;
+    
+    const messageP = document.createElement('p');
+    messageP.style.fontSize = '1.2rem';
+    messageP.style.marginTop = '1rem';
+    messageP.textContent = message;
+    
+    resultCard.appendChild(iconDiv);
+    resultCard.appendChild(titleH3);
+    resultCard.appendChild(messageP);
+    
+    // Create recommendations section
+    const recommendationDiv = document.createElement('div');
+    recommendationDiv.className = 'recommendation';
+    
+    const recH4 = document.createElement('h4');
+    recH4.textContent = 'Recomendaciones:';
+    
+    const recUl = document.createElement('ul');
+    recommendations.forEach(r => {
+        const li = document.createElement('li');
+        li.textContent = r;
+        recUl.appendChild(li);
+    });
+    
+    recommendationDiv.appendChild(recH4);
+    recommendationDiv.appendChild(recUl);
+    
+    // Create summary section
+    const summaryDiv = document.createElement('div');
+    summaryDiv.className = 'recommendation';
+    
+    const summaryH4 = document.createElement('h4');
+    summaryH4.textContent = 'Resumen de su evaluación:';
+    
+    const ageP = document.createElement('p');
+    const ageStrong = document.createElement('strong');
+    ageStrong.textContent = 'Edad:';
+    ageP.appendChild(ageStrong);
+    ageP.appendChild(document.createTextNode(` ${result.data.age} años`));
+    
+    const painP = document.createElement('p');
+    const painStrong = document.createElement('strong');
+    painStrong.textContent = 'Nivel de dolor:';
+    painP.appendChild(painStrong);
+    painP.appendChild(document.createTextNode(` ${result.data.painLevel}/10`));
+    
+    const durationP = document.createElement('p');
+    const durationStrong = document.createElement('strong');
+    durationStrong.textContent = 'Duración:';
+    durationP.appendChild(durationStrong);
+    durationP.appendChild(document.createTextNode(` ${getDurationText(result.data.duration)}`));
+    
+    const symptomsP = document.createElement('p');
+    const symptomsStrong = document.createElement('strong');
+    symptomsStrong.textContent = 'Síntomas reportados:';
+    symptomsP.appendChild(symptomsStrong);
+    symptomsP.appendChild(document.createTextNode(` ${result.data.symptoms.length}`));
+    
+    summaryDiv.appendChild(summaryH4);
+    summaryDiv.appendChild(ageP);
+    summaryDiv.appendChild(painP);
+    summaryDiv.appendChild(durationP);
+    summaryDiv.appendChild(symptomsP);
+    
+    if (result.data.conditions.length > 0) {
+        const conditionsP = document.createElement('p');
+        const conditionsStrong = document.createElement('strong');
+        conditionsStrong.textContent = 'Condiciones preexistentes:';
+        conditionsP.appendChild(conditionsStrong);
+        conditionsP.appendChild(document.createTextNode(` ${result.data.conditions.length}`));
+        summaryDiv.appendChild(conditionsP);
+    }
+    
+    // Create warning section
+    const warningDiv = document.createElement('div');
+    warningDiv.className = 'warning';
+    warningDiv.textContent = '⚠️ ';
+    const warningStrong = document.createElement('strong');
+    warningStrong.textContent = 'Importante:';
+    warningDiv.appendChild(warningStrong);
+    warningDiv.appendChild(document.createTextNode(' Esta evaluación es orientativa y no sustituye el diagnóstico médico profesional. Si tiene dudas o sus síntomas empeoran, busque atención médica inmediata.'));
+    
+    // Append all sections
+    resultContent.appendChild(resultCard);
+    resultContent.appendChild(recommendationDiv);
+    resultContent.appendChild(summaryDiv);
+    resultContent.appendChild(warningDiv);
 }
 
 function getDurationText(duration) {

@@ -1,0 +1,174 @@
+/* Reseteo básico y estilos generales */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #fff;
+    color: #000;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Clase para lectores de pantalla */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Encabezado Principal */
+.main-header {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.main-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+.main-header .line1 {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.header-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #28b5b5; /* Color del icono de la imagen */
+    border-radius: 10px;
+    /* Placeholder para el icono */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    /* Sustituir con el icono real */
+    content: "+👤"; 
+}
+
+
+/* Contenido Principal */
+#main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.triage-section {
+    text-align: center;
+}
+
+.triage-button {
+    width: 180px;
+    height: 180px;
+    background-color: #e60000; /* Rojo de la cruz */
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.triage-button::before,
+.triage-button::after {
+    content: '';
+    position: absolute;
+    background-color: white;
+}
+
+/* Barra horizontal de la cruz */
+.triage-button::before {
+    width: 60%;
+    height: 20%;
+}
+
+/* Barra vertical de la cruz */
+.triage-button::after {
+    width: 20%;
+    height: 60%;
+}
+
+
+/* Barra de Navegación Inferior */
+.bottom-nav {
+    width: 100%;
+    background-color: #f8f8f8;
+    border-top: 1px solid #e7e7e7;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.bottom-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bottom-nav .nav-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    font-size: 24px; /* Tamaño para los iconos placeholder */
+}
+
+.bottom-nav .nav-button .nav-text {
+    font-size: 12px;
+    display: none; /* Oculto como en la imagen, pero útil para accesibilidad */
+}
+
+.bottom-nav .nav-button.active {
+    color: #000; /* Icono activo más oscuro */
+}
+
+.bottom-nav .call-button {
+    background-color: #34c759; /* Verde del botón de llamada */
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    margin-top: -20px; /* Lo eleva un poco */
+    border: 5px solid white;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.15);
+}
+
+/* Placeholders para los iconos */
+.nav-button[aria-label="Ir a la página de inicio"]::before {
+    content: '🏠';
+}
+.nav-button[aria-label="Ir a tu perfil de usuario"]::before {
+    content: '👤';
+}
+.nav-button.call-button::before {
+    content: '📞';
+    font-size: 28px;
+}

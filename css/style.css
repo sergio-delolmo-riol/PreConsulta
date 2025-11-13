@@ -172,3 +172,59 @@ body, html {
     content: '📞';
     font-size: 28px;
 }
+
+/* Estilos para la página de perfil */
+.secondary-header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #e7e7e7;
+    box-sizing: border-box;
+}
+
+.secondary-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.profile-main {
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f0f0f0; /* Un fondo ligeramente gris para que destaquen los contenedores */
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.menu-item-single, .menu-group {
+    background-color: #cce7ff; /* Azul claro de los contenedores */
+    border-radius: 15px;
+    margin-bottom: 20px;
+    overflow: hidden; /* Para que los bordes redondeados afecten a los hijos */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.menu-button {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: #000;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #a9d7ff; /* Línea separadora más clara */
+    transition: background-color 0.3s;
+    text-align: center; /* Centra el texto horizontalmente */
+}
+
+.menu-group .menu-button:last-child {
+    border-bottom: none;
+}
+
+.menu-button:hover, .menu-button:focus {
+    background-color: #b8daff; /* Un poco más oscuro al pasar el ratón o al enfocar */
+    outline: none;
+}

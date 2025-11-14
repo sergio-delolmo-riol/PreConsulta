@@ -6,8 +6,12 @@ body, html {
     background-color: #fff;
     color: #000;
     height: 100%;
+}
+
+body {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }
 
 /* Clase para lectores de pantalla */
@@ -70,6 +74,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 70px; /* Espacio para la barra de navegación fija */
 }
 
 .triage-section {
@@ -77,16 +82,16 @@ body, html {
 }
 
 .triage-button {
-    width: 180px;
-    height: 180px;
-    background-color: #e60000; /* Rojo de la cruz */
+    width: 300px;
+    height: 300px;
+    background-color: #e60000;
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0px 10px rgb(0 0 0 / 70%);
     position: relative;
 }
 
@@ -227,4 +232,253 @@ body, html {
 .menu-button:hover, .menu-button:focus {
     background-color: #b8daff; /* Un poco más oscuro al pasar el ratón o al enfocar */
     outline: none;
+}
+
+/* Estilos para la página de consulta */
+.full-height-body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ocupar toda la altura de la ventana */
+}
+
+.consult-header {
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.consult-header .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.consult-header h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1;
+}
+
+.consult-header p {
+    margin: 10px 0 0;
+    font-size: 1rem;
+    color: #666;
+}
+
+.close-button {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #e60000;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.consult-main {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-method-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.input-method-selector .tab-button {
+    background-color: #e0e0e0;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.input-method-selector .tab-button.active {
+    background-color: #d0d0d0;
+}
+
+.input-method-selector .separator {
+    width: 2px;
+    height: 30px;
+    background-color: #ccc;
+    margin: 0 15px;
+}
+
+#panel-audio, #panel-texto {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.record-button {
+    width: 80px;
+    height: 80px;
+    background-color: #e60000;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(230, 0, 0, 0.4);
+    margin-bottom: 30px;
+}
+
+.record-button::before {
+    content: '🎤'; /* Placeholder para el icono de micro */
+    font-size: 40px;
+    color: white;
+}
+
+.text-container {
+    width: 100%;
+    position: relative;
+}
+
+.text-container textarea {
+    width: 100%;
+    height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+.char-counter {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.consult-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    border-top: 1px solid #e7e7e7;
+}
+
+.next-button {
+    flex-grow: 1;
+    background-color: #e0e0e0;
+    border: none;
+    padding: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-right: 15px;
+    text-decoration: none;
+    color: #000;
+    text-align: center;
+}
+
+.step-counter {
+    background-color: #007aff;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Lógica de visibilidad para los paneles de pestañas */
+.tab-panel {
+    display: none; /* Ocultar todos los paneles por defecto */
+}
+
+.tab-panel.active {
+    display: flex; /* Mostrar solo el panel activo */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Estilos para la página de evidencia (consulta-digital_pag2.html) */
+.evidence-container {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.evidence-upload-box {
+    width: 100%;
+    min-height: 250px;
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 2px dashed #ccc;
+}
+
+.upload-icon {
+    font-size: 4rem;
+    color: #888;
+}
+
+.upload-text {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.confirm-button {
+    background-color: #34c759; /* Verde brillante */
+    color: white;
+    border: none;
+    padding: 18px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 30px;
+    box-shadow: 0 4px 10px rgba(52, 199, 89, 0.4);
+}
+
+.back-button {
+    background-color: #e0e0e0;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
 }

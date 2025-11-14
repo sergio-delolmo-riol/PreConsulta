@@ -99,3 +99,5 @@ Perfil: Corresponde a la Tarea 1.2 (Consulta de información médica) y Tarea 1.
 Llamada de Emergencia: Una función de acceso rápido para contactar a los servicios de emergencia (ej. 112, 061).
 
 El desarrollo continuará desde esta base para construir los demás flujos (captura de síntomas, visualización de estado de cola, etc.) y las interfaces para el personal sanitario (Enfermería, Celador), siempre respetando los principios de accesibilidad y el contexto de uso detallados.
+
+En la carpeta media/pantallas se encuentran las diferentes pantallas que se deberan de implementar para la pagina web

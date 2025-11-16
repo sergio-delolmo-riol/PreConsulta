@@ -1,5 +1,6 @@
 /* Reseteo básico y estilos generales */
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -53,18 +54,34 @@ body {
 }
 
 .header-icon {
-    width: 48px;
-    height: 48px;
-    background-color: #28b5b5; /* Color del icono de la imagen */
-    border-radius: 10px;
-    /* Placeholder para el icono */
+    width: 60px;
+    height: 60px;
+    background-color: #e6f3ff;
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    font-size: 24px;
-    /* Sustituir con el icono real */
-    content: "+👤"; 
+}
+
+.app-logo {
+    width: 40px;
+    height: 40px;
+}
+
+.header-icon-login {
+    width: 60px;
+    height: 60px;
+    background-color: #e6f3ff;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.header-icon-login .app-logo {
+    width: 40px;
+    height: 40px;
 }
 
 
@@ -74,7 +91,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 70px; /* Espacio para la barra de navegación fija */
+    padding-bottom: 70px;
+    /* Espacio para la barra de navegación fija */
 }
 
 .triage-section {
@@ -91,7 +109,7 @@ body {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0px 10px rgb(0 0 0 / 70%);
+    box-shadow: 0 0px 10px rgb(0 0 0 / 1);
     position: relative;
 }
 
@@ -114,13 +132,21 @@ body {
     height: 60%;
 }
 
+.triage-description {
+    margin-top: 25px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+}
+
 
 /* Barra de Navegación Inferior */
 .bottom-nav {
     width: 100%;
     background-color: #f8f8f8;
     border-top: 1px solid #e7e7e7;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
     bottom: 0;
     left: 0;
@@ -139,44 +165,69 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
     text-decoration: none;
-    color: #333;
-    font-size: 24px; /* Tamaño para los iconos placeholder */
+    color: #999;
+    font-size: 24px;
+    gap: 4px;
+    padding: 8px 10px;
+    min-height: 70px;
+}
+
+
+.bottom-nav .nav-button .nav-icon {
+    width: 50px;
+    height: 50px;
+    opacity: 0.5;
+    filter: grayscale(1);
+    transition: all 0.3s ease;
 }
 
 .bottom-nav .nav-button .nav-text {
-    font-size: 12px;
-    display: none; /* Oculto como en la imagen, pero útil para accesibilidad */
+    font-size: 15px;
+    display: block;
+    color: #000;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+    text-align: center;
+    line-height: 1.2;
+    font-weight: bold;
 }
 
 .bottom-nav .nav-button.active {
-    color: #000; /* Icono activo más oscuro */
+    color: #000;
 }
 
-.bottom-nav .call-button {
-    background-color: #34c759; /* Verde del botón de llamada */
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-    margin-top: -20px; /* Lo eleva un poco */
-    border: 5px solid white;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.15);
+.bottom-nav .nav-button.active .nav-icon {
+    opacity: 1;
+    filter: grayscale(0);
 }
 
-/* Placeholders para los iconos */
-.nav-button[aria-label="Ir a la página de inicio"]::before {
-    content: '🏠';
+.bottom-nav .nav-button.active .nav-text {
+    color: #000;
+    font-weight: 600;
+    opacity: 1;
 }
-.nav-button[aria-label="Ir a tu perfil de usuario"]::before {
-    content: '👤';
+
+.bottom-nav .nav-button:hover .nav-icon {
+    opacity: 1;
+    filter: grayscale(0);
 }
-.nav-button.call-button::before {
-    content: '📞';
-    font-size: 28px;
+
+.bottom-nav .nav-button:hover .nav-text {
+    opacity: 1;
 }
+
+.bottom-nav .call-button .nav-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 7px;
+}
+
+.bottom-nav .call-button .nav-text {
+    font-size: 10px;
+}
+
 
 /* Estilos para la página de perfil */
 .secondary-header {
@@ -196,7 +247,8 @@ body {
     align-items: flex-start;
     padding: 20px;
     box-sizing: border-box;
-    background-color: #f0f0f0; /* Un fondo ligeramente gris para que destaquen los contenedores */
+    background-color: #f0f0f0;
+    /* Un fondo ligeramente gris para que destaquen los contenedores */
 }
 
 .menu-list {
@@ -206,31 +258,51 @@ body {
     width: 100%;
 }
 
-.menu-item-single, .menu-group {
-    background-color: #cce7ff; /* Azul claro de los contenedores */
+.menu-item-single,
+.menu-group {
+    background-color: #cce7ff;
+    /* Azul claro de los contenedores */
     border-radius: 15px;
     margin-bottom: 20px;
-    overflow: hidden; /* Para que los bordes redondeados afecten a los hijos */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    overflow: hidden;
+    /* Para que los bordes redondeados afecten a los hijos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .menu-button {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 20px;
     text-decoration: none;
     color: #000;
     font-size: 1.1rem;
-    border-bottom: 1px solid #a9d7ff; /* Línea separadora más clara */
+    border-bottom: 1px solid #a9d7ff;
+    /* Línea separadora más clara */
     transition: background-color 0.3s;
-    text-align: center; /* Centra el texto horizontalmente */
+    text-align: left;
+}
+
+.menu-icon {
+    font-size: 1.5rem;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+}
+
+.menu-text {
+    flex: 1;
 }
 
 .menu-group .menu-button:last-child {
     border-bottom: none;
 }
 
-.menu-button:hover, .menu-button:focus {
-    background-color: #b8daff; /* Un poco más oscuro al pasar el ratón o al enfocar */
+.menu-button:hover,
+.menu-button:focus {
+    background-color: #b8daff;
+    /* Un poco más oscuro al pasar el ratón o al enfocar */
     outline: none;
 }
 
@@ -238,7 +310,8 @@ body {
 .full-height-body {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Ocupar toda la altura de la ventana */
+    height: 100vh;
+    /* Ocupar toda la altura de la ventana */
 }
 
 .consult-header {
@@ -271,14 +344,21 @@ body {
     font-weight: bold;
     color: #fff;
     background-color: #e60000;
-    border-radius: 50%;
+    border-radius: 10px;
+    /* Cambiado de 50% a 10px para hacerlo cuadrado con bordes redondeados */
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    /* Asegurar que no se comprima */
+    min-height: 40px;
+    /* Asegurar que no se comprima */
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
     line-height: 1;
+    flex-shrink: 0;
+    /* Evitar que el botón se comprima */
 }
 
 .consult-main {
@@ -318,7 +398,8 @@ body {
     margin: 0 15px;
 }
 
-#panel-audio, #panel-texto {
+#panel-audio,
+#panel-texto {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -340,7 +421,8 @@ body {
 }
 
 .record-button::before {
-    content: '🎤'; /* Placeholder para el icono de micro */
+    content: '🎤';
+    /* Placeholder para el icono de micro */
     font-size: 40px;
     color: white;
 }
@@ -373,10 +455,19 @@ body {
 .consult-footer {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
+    /* Estirar los elementos para que tengan la misma altura */
     padding: 20px;
     box-sizing: border-box;
     border-top: 1px solid #e7e7e7;
+}
+
+.next-button,
+.back-button,
+.step-counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .next-button {
@@ -389,28 +480,56 @@ body {
     border-radius: 15px;
     cursor: pointer;
     margin-right: 15px;
+    margin-left: 15px;
     text-decoration: none;
     color: #000;
     text-align: center;
 }
 
+.back-button {
+    background-color: #e0e0e0;
+    border: none;
+    width: 50px;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    flex-shrink: 0;
+    /* Evitar que el botón de atrás se encoja */
+}
+
+
 .step-counter {
     background-color: #007aff;
     color: white;
-    padding: 15px 20px;
+    padding: 10px 15px;
     border-radius: 15px;
-    font-size: 1rem;
     font-weight: bold;
     text-align: center;
+    flex-direction: column;
+}
+
+.counter-number {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.counter-text {
+    font-size: 0.75rem;
+    margin-top: 2px;
 }
 
 /* Lógica de visibilidad para los paneles de pestañas */
 .tab-panel {
-    display: none; /* Ocultar todos los paneles por defecto */
+    display: none;
+    /* Ocultar todos los paneles por defecto */
 }
 
 .tab-panel.active {
-    display: flex; /* Mostrar solo el panel activo */
+    display: flex;
+    /* Mostrar solo el panel activo */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -454,7 +573,8 @@ body {
 }
 
 .confirm-button {
-    background-color: #34c759; /* Verde brillante */
+    background-color: #34c759;
+    /* Verde brillante */
     color: white;
     border: none;
     padding: 18px 30px;
@@ -467,18 +587,701 @@ body {
     box-shadow: 0 4px 10px rgba(52, 199, 89, 0.4);
 }
 
-.back-button {
-    background-color: #e0e0e0;
+/* Estilos para la página de estado de consulta (consulta-digital_pag3.html) */
+.status-divider {
+    width: calc(100% - 40px);
+    margin: 0 20px 20px 20px;
     border: none;
-    width: 50px;
+    border-top: 3px solid #007aff;
+    /* Azul */
+}
+
+.status-title {
+    width: 100%;
+    padding: 0 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.status-container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-tracker {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Línea vertical que conecta los puntos */
+.status-tracker::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 13px;
+    bottom: 13px;
+    width: 2px;
+    background-color: #e0e0e0;
+    z-index: 0;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    position: relative;
+    min-height: 26px;
+    /* Fijar altura mínima para evitar movimientos */
+    z-index: 1;
+}
+
+.status-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: 4px solid #fff;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    flex-shrink: 0;
+    /* Evitar que se comprima */
+}
+
+.status-label {
+    font-size: 1.1rem;
+    color: #666;
+    flex-shrink: 0;
+    /* Evitar que se comprima */
+}
+
+/* Items normales: label a la derecha */
+.status-item:not(.status-item-reverse) {
+    justify-content: flex-start;
+    padding-left: calc(50% + 20px);
+}
+
+.status-item:not(.status-item-reverse) .status-label {
+    text-align: left;
+}
+
+/* Estilo para el item invertido (label a la izquierda) */
+.status-item-reverse {
+    justify-content: flex-end;
+    padding-right: calc(50% + 20px);
+}
+
+.status-item-reverse .status-label {
+    text-align: right;
+}
+
+/* Estilo para el estado activo */
+.status-item.active .status-dot {
+    background-color: #007aff;
+}
+
+.status-item.active .status-label {
+    color: #000;
+    font-weight: bold;
+}
+
+/* Línea de progreso entre puntos */
+.status-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 26px;
     height: 50px;
+    width: 2px;
+    background: linear-gradient(to bottom, #e0e0e0 0%, #e0e0e0 100%);
+    z-index: 1;
+}
+
+.status-item.active:not(:last-child)::after {
+    background: linear-gradient(to bottom, #007aff 0%, #007aff 100%);
+}
+
+/* Animaciones para los puntos de estado */
+.status-item:nth-child(1) .status-dot {
+    animation: fillDot 1s ease-in-out 0s forwards;
+}
+
+.status-item:nth-child(2) .status-dot {
+    animation: fillDot 1s ease-in-out 3.33s forwards;
+}
+
+.status-item:nth-child(3) .status-dot {
+    animation: fillDot 1s ease-in-out 6.66s forwards;
+}
+
+/* Animaciones para las etiquetas */
+.status-item:nth-child(1) .status-label {
+    animation: highlightLabel 0.1s linear 1s forwards;
+}
+
+.status-item:nth-child(2) .status-label {
+    animation: highlightLabel 0.1s linear 4.33s forwards;
+}
+
+.status-item:nth-child(3) .status-label {
+    animation: highlightLabel 0.1s linear 7.66s forwards;
+}
+
+/* Animaciones para las líneas conectoras */
+.status-item:nth-child(1)::after {
+    animation: fillLine 3.33s ease-in-out 0s forwards;
+}
+
+.status-item:nth-child(2)::after {
+    animation: fillLine 3.33s ease-in-out 3.33s forwards;
+}
+
+/* Keyframes para llenar los puntos */
+@keyframes fillDot {
+    from {
+        background-color: #ccc;
+    }
+
+    to {
+        background-color: #007aff;
+    }
+}
+
+/* Keyframes para resaltar las etiquetas */
+@keyframes highlightLabel {
+    0% {
+        color: #666;
+        font-weight: normal;
+    }
+
+    100% {
+        color: #000;
+        font-weight: bold;
+    }
+}
+
+/* Keyframes para llenar las líneas de arriba a abajo */
+@keyframes fillLine {
+    from {
+        background: linear-gradient(to bottom, #007aff 0%, #e0e0e0 0%);
+    }
+
+    to {
+        background: linear-gradient(to bottom, #007aff 100%, #007aff 100%);
+    }
+}
+
+/* ===== ESTILOS PARA LA PANTALLA DE CONSULTA APROBADA ===== */
+
+.approved-title {
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.approved-main {
+    padding: 30px 20px 0px 20px;
+}
+
+.info-section {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.info-label {
+    font-size: 1rem;
+    font-weight: normal;
+    margin-bottom: 10px;
+    color: #000;
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+}
+
+.info-box {
+    width: 90%;
+    max-width: 380px;
+    height: 100px;
+    padding: 0 20px;
+    border-radius: 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.info-value {
     font-size: 2rem;
     font-weight: bold;
+    color: #000;
+    line-height: 1;
+}
+
+.urgency-box {
+    background-color: #ffeb3b;
+}
+
+.time-box {
+    background-color: #d9d9d9;
+}
+
+.patients-box {
+    background-color: #d9d9d9;
+}
+
+.confirm-attendance-button {
+    background-color: #e0e0e0;
+    color: #000;
+    border: none;
+    padding: 25px 20px;
     border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    margin: 0 15px;
+    text-align: center;
+}
+
+.confirm-attendance-button:hover:not(.confirmed):not(:disabled) {
+    background-color: #d0d0d0;
+}
+
+.confirm-attendance-button.confirmed {
+    background-color: #4caf50;
+    color: white;
+    cursor: default;
+    padding: 25px 13px;
+}
+
+/* ===== ESTILOS PARA LA PANTALLA DE LOGIN ===== */
+
+.login-body {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.login-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.login-title {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.header-icon-login {
+    width: 60px;
+    height: 60px;
+    /* background-color: #28b5b5; */
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.login-main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.welcome-text {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.app-name {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.form-fields-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.form-subtitle {
+    font-size: 1rem;
+    font-weight: normal;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.form-field {
+    margin-bottom: 5px;
+}
+
+.form-field label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #000;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #000;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+.form-field input:focus {
+    outline: none;
+    border-color: #007aff;
+}
+
+/* Mensajes de error */
+.error {
+    color: #d32f2f;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    min-height: 20px;
+}
+
+.form-field input.error-borde {
+    border: 2px solid #d32f2f !important;
+    background: #fff6f6;
+}
+
+.forgot-password-button {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 0.95rem;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.forgot-password-button:hover {
+    color: #007aff;
+}
+
+.form-buttons-container {
+    margin-top: auto;
+    padding-bottom: 20px;
+}
+
+.login-submit-button {
+    width: 100%;
+    background-color: #007aff;
+    color: #fff;
+    border: none;
+    padding: 18px;
+    border-radius: 20px 20px 0px 0px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
+}
+
+.login-submit-button:hover {
+    background-color: rgba(0, 123, 255, 0.8);
+}
+
+.register-button {
+    width: 100%;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    padding: 18px;
+    border-radius: 0px 0px 20px 20px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.register-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* ===== ESTILOS ESPECÍFICOS PARA LA PANTALLA DE REGISTRO ===== */
+
+.register-title {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.register-main-text {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.register-subtitle {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: normal;
+}
+
+.register-divider {
+    width: 100%;
+    /* margin: 20px 0; */
+    border: none;
+    border-top: 3px solid #007aff;
+}
+
+.already-account-button {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 1rem;
+    /* text-decoration: underline; */
+    cursor: pointer;
+    padding: 15px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.register-submit-button {
+    width: 100%;
+    background-color: #007aff;
+    color: #fff;
+    border: none;
+    padding: 18px;
+    border-radius: 0px 0px 20px 20px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-submit-button:hover {
+    background-color: rgb(0, 122, 255, 0.8);
+}
+
+.already-account-button:hover {
+    color: rgb(0, 122, 255, 0.8);
+}
+
+/* ===== ESTILOS PARA LA PANTALLA DE PERFIL DE USUARIO ===== */
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background-color: #fff;
+}
+
+.profile-header {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.profile-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.profile-welcome {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.profile-greeting {
+    font-size: 1.5rem;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.profile-username {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.profile-close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background-color: #e60000;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.8rem;
+    font-weight: bold;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-decoration: none;
-    color: #333;
+    line-height: 1;
+}
+
+.profile-close-button:hover {
+    background-color: #cc0000;
+}
+
+.profile-nav {
+    display: flex;
+    background-color: rgba(0, 122, 255, 0.8);
+    border-radius: 15px;
+    overflow: visible;
+    position: relative;
+}
+
+.avatar-alert {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 35px;
+    height: 35px;
+    background-color: #ffeb3b;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border: 2px solid #fff;
+    z-index: 10;
+}
+
+.profile-tab {
+    flex: 1;
+    padding: 15px 20px;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #000;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.profile-tab:first-child {
+    border-right: 1px solid #fff;
+}
+
+.profile-tab:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.profile-tab.active {
+    background-color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+}
+
+.profile-content-panel {
+    display: none;
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.profile-content-panel.active {
+    display: block;
+}
+
+/* Data container */
+.profile-data-container {
+    background-color: #fff;
+    padding: 25px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.data-item {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc;
+}
+
+.data-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.data-label {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.data-value {
+    font-size: 1.2rem;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Historial empty state */
+.historial-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 300px;
+}
+
+.historial-empty p {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+    margin: 0;
 }

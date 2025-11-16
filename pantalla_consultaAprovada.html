@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de la Consulta - PreConsulta</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="full-height-body">
+
+    <header class="consult-header" role="banner">
+        <div class="header-content">
+            <div>
+                <h1>
+                    <span class="line1">Por favor</span>
+                    <span class="line2">manténgase a la espera,</span>
+                </h1>
+                <p>su consulta está siendo revisada por un enfermero.</p>
+            </div>
+            <a href="index.html" class="close-button" aria-label="Cerrar y volver al inicio">×</a>
+        </div>
+    </header>
+
+    <main class="consult-main" role="main">
+        <hr class="status-divider">
+        <h2 class="status-title">Estado de su consulta:</h2>
+        <div class="status-container">
+            <ul class="status-tracker" aria-label="Progreso de la consulta">
+                <li class="status-item active" aria-current="step">
+                    <span class="status-dot"></span>
+                    <span class="status-label">Consulta recibida</span>
+                </li>
+                <li class="status-item status-item-reverse">
+                    <span class="status-dot"></span>
+                    <span class="status-label">Consulta aprobada</span>
+                </li>
+                <li class="status-item">
+                    <span class="status-dot"></span>
+                    <span class="status-label">Transfiriendo datos</span>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <footer class="consult-footer" role="contentinfo">
+        <a href="consulta-digital_pag2.html" class="back-button" aria-label="Volver al paso anterior">←</a>
+        <a href="consulta-digital_pag3.html" class="next-button">Siguiente</a>
+        <div class="step-counter" aria-label="Paso 2 de 3">
+            <span class="counter-number">2/3</span>
+            <span class="counter-text">pasos</span>
+        </div>
+    </footer>
+
+    <script>
+        // Habilitar el botón "Siguiente" después de que termine la animación (10 segundos)
+        setTimeout(function() {
+            const nextButton = document.getElementById('nextButton');
+            nextButton.disabled = false;
+            nextButton.onclick = function() {
+                window.location.href = 'consulta-digital_pag3.html';
+            };
+        }, 10000);
+    </script>
+
+</body>  
+</html>

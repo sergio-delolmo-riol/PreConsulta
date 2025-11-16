@@ -1,0 +1,155 @@
+/* Mensajes de error y campos con error */
+.error {
+	color: #d32f2f;
+	font-size: 0.98em;
+	margin-top: 2px;
+	margin-bottom: 8px;
+}
+
+.campo-form input:invalid,
+.campo-form input.error-borde {
+	border: 2px solid #d32f2f !important;
+	background: #fff6f6;
+}
+/* Estilos generales para el formulario */
+
+body{
+	background-color: #91d278b2;
+
+}
+
+.campo_info{
+	font-weight: bold;
+	color: #34495e69;
+	margin-bottom: 5px;
+	font-size: 15px;
+}
+
+form {
+	max-width: 500px;
+	margin: 40px auto;
+	padding: 30px 25px;
+	background: #f9f9f9;
+	border-radius: 10px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	font-family: Arial, sans-serif;
+}
+
+
+form h2 {
+	color: #2c3e50;
+	margin-bottom: 18px;
+	font-size: 1.4em;
+	border-bottom: 1px solid #e0e0e0;
+	padding-bottom: 6px;
+}
+
+form h2:nth-of-type(2),
+form h2:nth-of-type(3),
+form h2:nth-of-type(4),
+form h2:nth-of-type(5) {
+	margin-top: 50px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form input[type="date"],
+form textarea,
+form select {
+	width: 100%;
+	padding: 8px 10px;
+	margin: 8px 0 16px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 1em;
+}
+
+form textarea {
+	min-height: 60px;
+	resize: vertical;
+}
+
+form input[type="radio"] {
+	margin-right: 6px;
+	accent-color: #2980b9;
+}
+
+form input[type="checkbox"] {
+	margin-right: 6px;
+	accent-color: #2980b9;
+}
+
+form input[type="file"] {
+	margin: 10px 0 18px 0;
+}
+
+form p {
+	margin: 12px 0 4px 0;
+	font-weight: bold;
+	color: #34495e;
+}
+
+.p_estadoCivil{
+	margin: 30px 0 4px 0;
+	font-weight: bold;
+	color: #34495e;
+}
+
+.button-referencias {
+	background: #7370703b;
+	color: #000000;
+	border: none;
+	padding: 5px 20px;
+	border-radius: 5px;
+	font-size: 1em;
+	cursor: pointer;
+	margin-bottom: 20px;
+	transition: background 0.2s;
+}
+
+.button-referencias:hover {
+	background: #68e963cc;
+}
+
+.button-enviar {
+	background: #2980b9;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 1em;
+	cursor: pointer;
+	margin-top: 10px;
+	transition: background 0.2s;
+	width: 100%;
+}
+
+.button-enviar:hover {
+	background: #1c5d85;
+}
+
+.p-CV{
+	margin: 30px 0 4px 0;
+	font-weight: bold;
+	color: #34495e;
+}
+
+fieldset{
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.label-comentarios{
+	display: block;
+	margin-top: 20px;	
+}
+
+legend {
+	font-weight: bold;
+	color: #2c3e50;
+	padding: 0 5px;
+}

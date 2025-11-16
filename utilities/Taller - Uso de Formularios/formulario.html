@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Solicitud de Empleo</title>
+    <link href="./formulario.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <!-- Aplicamos un fondo verde ya que este es el color que menos fatiga visual produce. 
+    Este efecto relajante, junto con su acción mitigadora del estrés, hace que sea una buena opción cuando hay que permanecer mucho tiempo ante una pantalla,
+    lo cual es perfecto para este largo formulario -->
+    <form id="formulario" action="#" method="post" novalidate>
+        <!-- Información personal -->
+        <h2>Información Personal</h2>
+        <div class="campo-form"> <!-- Informamos al usuario sobre la información que tiene que añadir en el formulario y le mostramos un ejemplo, tambien le indicamos mediante el asteristco que es un campo obligatorio -->
+            <label for="nombre">Nombre<span style="color: red;">*</span></label> 
+            <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" aria-required="true" 
+                aria-describedby="error-nombre" autocomplete="name" aria-invalid="false">
+            <div class="error" id="error-nombre" aria-live="polite"></div>
+        </div>
+        <div class="campo-form">
+            <label for="direccion">Dirección<span style="color: red;">*</span></label>
+            <input type="text" id="direccion" name="direccion" placeholder="Calle de Carretas" aria-required="true"
+                aria-describedby="error-direccion" autocomplete="street-address" aria-invalid="false">
+            <div class="error" id="error-direccion" aria-live="polite"></div>
+        </div>
+        <div class="campo-form">
+            <label for="email">Correo electrónico<span style="color: red;">*</span></label>
+            <input type="email" id="email" name="email" placeholder="ejemplo@gmail.com" aria-required="true"
+                aria-describedby="error-email" autocomplete="email" aria-invalid="false">
+            <div class="error" id="error-email" aria-live="polite"></div>
+        </div>
+        <div class="campo-form">
+            <label for="telefono">Número de teléfono<span style="color: red;">*</span></label>
+            <input type="tel" id="telefono" name="telefono" placeholder="677123456" aria-required="true"
+                aria-describedby="error-telefono" autocomplete="tel" aria-invalid="false">
+            <div class="error" id="error-telefono" aria-live="polite"></div>
+        </div>
+        <div class="campo-form">
+            <label for="fecha">Fecha de nacimiento<span style="color: red;">*</span></label>
+            <input type="date" id="fecha" name="fecha" placeholder="Fecha de nacimiento" aria-required="true"
+                aria-describedby="error-fecha" aria-invalid="false">
+            <div class="error" id="error-fecha" aria-live="polite"></div>
+        </div>
+
+        <!-- Género -->
+        <fieldset> <!-- Aplicamos el fieldset y el legend segun ARIA -->
+            <legend>Género</legend>
+            <div> <!-- Agrupamos las diferentes opciones en vertical según el documento de directrices -->
+                <input type="radio" name="gender" id="male" value="male">
+                <label for="male">Masculino</label>
+            </div>
+            <div>
+                <input type="radio" name="gender" id="female" value="female">
+                <label for="female">Femenino</label>
+            </div>
+            <div>
+                <input type="radio" name="gender" id="other" value="other">
+                <label for="other">Otro</label>
+            </div>
+        </fieldset>
+
+        <!-- Estado civil -->
+        <label for="estadoCivil">Estado civil</label>
+        <select id="estadoCivil" name="estadoCivil">
+            <option value="soltero">Soltero</option>
+            <option value="casado">Casado</option>
+            <option value="divorciado">Divorciado</option>
+        </select>
+
+        <!-- Nivel de educación -->
+        <label for="education">Nivel de educación</label>
+        <div>
+            <input type="checkbox" name="education" id="secundaria" value="secundaria">
+            <label for="secundaria">Secundaria</label>
+        </div>
+        <div>
+            <input type="checkbox" name="education" id="preparatoria" value="preparatoria">
+            <label for="preparatoria">Preparatoria</label>
+        </div>
+        <div>
+            <input type="checkbox" name="education" id="universidad" value="universidad">
+            <label for="universidad">Universidad</label>
+        </div>
+
+
+        <!-- Historial laboral -->
+        <h2>Historial Laboral</h2>
+        <label for="ultimoEmpleo">Último empleo</label>
+        <input type="text" id="ultimoEmpleo" name="ultimoEmpleo" placeholder="Camarero">
+        <label for="empresaAnterior">Empresa anterior</label>
+        <input type="text" id="empresaAnterior" name="empresaAnterior" placeholder="UFV">
+        <label for="descripcionPuesto">Descripción del puesto anterior</label>
+        <textarea id="descripcionPuesto" name="descripcionPuesto"
+            placeholder="¿De que trataba en el trabajo anterior?"></textarea> 
+
+        <!-- Disponibilidad -->
+        <fieldset class="campo-form">
+            <legend>¿Estás disponible para trabajar de inmediato?<span style="color: red;">*</span></legend>
+            <input type="radio" name="disponibilidad" id="disponibilidad-si" value="sí">
+            <label for="disponibilidad-si">Sí</label>
+            <input type="radio" name="disponibilidad" id="disponibilidad-no" value="no">
+            <label for="disponibilidad-no">No</label>
+            <div class="error" id="error-disponibilidad" aria-live="polite"></div>
+        </fieldset>
+
+        <!-- Adjuntar CV -->
+        <label for="cv">Adjuntar currículum</label>
+        <div><input type="file" id="cv" name="cv"></div>
+
+
+        <!-- Experiencia adicional -->
+        <fieldset class="campo-form">
+            <legend>¿Tienes experiencia previa en el extranjero?</legend>
+            <input type="radio" name="extranjero" id="extranjero-si" value="sí">
+            <label for="extranjero-si">Sí</label>
+            <input type="radio" name="extranjero" id="extranjero-no" value="no">
+            <label for="extranjero-no">No</label>
+            <div class="error" id="error-extranjero" aria-live="polite"></div>
+        </fieldset>
+
+        <!-- Idiomas -->
+        <label for="idiomas">Idiomas</label>
+        <select id="idiomas" name="idiomas">
+            <option value="español">Español</option>
+            <option value="inglés">Inglés</option>
+            <option value="francés">Francés</option>
+        </select>
+
+        <!-- Referencias -->
+        <fieldset class="campo-form">
+            <legend>Referencias<span style="color: red;">*</span></legend>
+            <label for="referencia-nombre">Nombre de referencia</label>
+            <input type="text" id="referencia-nombre" placeholder="Juan Peréz"
+                aria-describedby="error-referencia-nombre" aria-required="true" autocomplete="name">
+            <div class="error" id="error-referencia-nombre" aria-live="polite"></div>
+            <label for="referencia-telefono">Teléfono de referencia</label>
+            <input type="tel" id="referencia-telefono" placeholder="677123456"
+                aria-describedby="error-referencia-telefono" aria-required="true" autocomplete="tel">
+            <div class="error" id="error-referencia-telefono" aria-live="polite"></div>
+            <div class="error" id="error-referencias" aria-live="polite"></div>
+            <button class="button-referencias" id="btn-llenar-referencias" type="button">Usar datos anteriores</button>
+        </fieldset> <!-- Como anteriormente ya pedimos estos datos al usuaio, 
+        utilizamos un botón para llenar las referencias con los datos principales en caso de que quiera reutilizarlos-->
+
+        <!-- Disponibilidad horaria -->
+        <label for="disponibilidad-horaria">Disponibilidad horaria</label>
+        <div>
+            <input type="time" id="disponibilidad-horaria" name="disponibilidad-horaria">
+        </div>
+
+        <!-- Comentarios adicionales -->
+        <label class="label-comentarios" for="comentarios">Comentarios adicionales</label>
+        <div>
+            <textarea id="comentarios" name="comentarios" placeholder="Escribe tus comentarios aquí"></textarea>
+        </div>
+
+        <!-- Enviar -->
+        <button class="button-enviar" type="submit" aria-label="Enviar formulario">Enviar solicitud</button>
+    </form>
+
+    <script>
+        // Llenar referencias con datos principales
+        document.getElementById('btn-llenar-referencias').addEventListener('click', function () {
+            const nombre = document.getElementById('nombre').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            document.getElementById('referencia-nombre').value = nombre;
+            document.getElementById('referencia-telefono').value = telefono;
+        });
+        // Validación de formulario y mensajes de error
+        // Solo permitimos números en el input de teléfono
+        document.getElementById('telefono').addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        document.getElementById('formulario').addEventListener('submit', function (event) {
+            let valido = true;
+
+            // Limpiamos errores previos
+            document.querySelectorAll('.error').forEach(e => e.textContent = '');
+            document.querySelectorAll('.campo-form input').forEach(e => e.classList.remove('error-borde'));
+
+            // Validamos el nombre
+            const nombre = document.getElementById('nombre').value.trim();
+            if (nombre.length < 2) { // Por ahora pondremos un minimos de caracteres, pero podría ser una validación más compleja mediante una API externa que valide si el nombre es coherente
+                document.getElementById('error-nombre').textContent = 'El nombre debe tener al menos 2 caracteres, reingrese su nombre.';
+                document.getElementById('nombre').classList.add('error-borde');
+                valido = false;
+            }
+
+            // Validamos dirección
+            const direccion = document.getElementById('direccion').value.trim();
+            if (direccion.length < 5) { // Por ahora pondremos un minimos de caracteres, pero podría ser una validación más compleja mediante una API externa que valide si la dirección existe
+                document.getElementById('error-direccion').textContent = 'No se ha encontrado esta dirección, reingrese su dirección.';
+                document.getElementById('direccion').classList.add('error-borde');
+                valido = false;
+            }
+
+            // Validamos email
+            const email = document.getElementById('email').value.trim();
+            const emailRegexDominio = /^[^@\s]+\.[^@\s]+$/;
+            if (email === '') {
+                document.getElementById('error-email').textContent = 'Debe ingresar un correo electrónico.';
+                document.getElementById('email').classList.add('error-borde');
+                valido = false;
+            } else if (!email.includes('@')) {
+                document.getElementById('error-email').textContent = 'El correo debe contener un "@".';
+                document.getElementById('email').classList.add('error-borde');
+                valido = false;
+            } else {
+                const partes = email.split('@');
+                if (partes.length !== 2 || partes[0].length === 0 || partes[1].length === 0) {
+                    document.getElementById('error-email').textContent = 'El correo debe tener texto antes y después del "@".';
+                    document.getElementById('email').classList.add('error-borde');
+                    valido = false;
+                } else if (!emailRegexDominio.test(partes[1])) {
+                    document.getElementById('error-email').textContent = 'El dominio del correo no es válido, reingrese su e-mail.';
+                    document.getElementById('email').classList.add('error-borde');
+                    valido = false;
+                } else if (!(partes[1].endsWith('.com') || partes[1].endsWith('.es'))) {
+                    document.getElementById('error-email').textContent = 'El dominio debe terminar en .com o .es';
+                    document.getElementById('email').classList.add('error-borde');
+                    valido = false;
+                }
+            }
+
+            // Validamos teléfono
+            const telefonoInput = document.getElementById('telefono');
+            const telefono = telefonoInput.value.trim();
+            if (telefono.length !== 9) {
+                document.getElementById('error-telefono').textContent = 'El número de teléfono debe tener 9 dígitos.';
+                telefonoInput.classList.add('error-borde');
+                valido = false;
+            }
+
+            // Validamos fecha
+            const fecha = document.getElementById('fecha').value;
+            if (!fecha) {
+                document.getElementById('error-fecha').textContent = 'Ingrese su fecha de nacimiento.';
+                document.getElementById('fecha').classList.add('error-borde');
+                valido = false;
+            }
+
+            // Validar disponibilidad
+            const disponibilidadSeleccionada = document.querySelector('input[name="disponibilidad"]:checked');
+            if (!disponibilidadSeleccionada) {
+                document.getElementById('error-disponibilidad').textContent = 'Por favor seleccione una opción.';
+                valido = false;
+            }
+
+            const referenciasNombreInput = document.querySelector('input[placeholder="Nombre de referencia"]');
+            const referenciasTelefonoInput = document.querySelector('input[placeholder="Teléfono de referencia"]');
+            const referenciasNombre = referenciasNombreInput.value.trim();
+            const referenciasTelefono = referenciasTelefonoInput.value.trim();
+            if (referenciasNombre === '' && referenciasTelefono == '') {
+                document.getElementById('error-referencias').textContent = 'Debe ingresar el nombre y el teléfono de referencia.';
+                referenciasNombreInput.classList.add('error-borde');
+                referenciasTelefonoInput.classList.add('error-borde');
+                valido = false;
+            } else if (referenciasTelefono == '') {
+                document.getElementById('error-referencias').textContent = 'Debe ingresar un teléfono de referencia.';
+                referenciasTelefonoInput.classList.add('error-borde');
+                valido = false;
+            } else if (referenciasNombre === '') {
+                document.getElementById('error-referencias').textContent = 'Debe ingresar un nombre de referencia.';
+                referenciasNombreInput.classList.add('error-borde');
+                valido = false;
+            }
+
+            if (!valido) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+
+</html>

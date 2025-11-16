@@ -1,0 +1,176 @@
+<!-- Problema 1 -->
+<form>
+    <label for="name">Nombre</label>
+    <input id="name" type="text" placeholder="Nombre">
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email" placeholder="Correo electrónico">
+    <button type="submit">Enviar</button>
+</form>
+Solución: Uso de <label> asociadolo con el for e id.
+
+<!-- Problema 2 -->
+<form>
+    <label for="name">Nombre</label>
+    <input id="name" type="text">
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email">
+    <button type="submit">Enviar</button>
+</form>
+Solucion: Añadimos for en el label y id en el input
+
+<!-- Problema 3 -->
+<form>
+    <label for="name">Nombre</label>
+    <input id="name" type="text">
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email">
+    <button type="submit" aria-label="Enviar formulario">Enviar</button>
+</form>
+Solucion: primero metimos texto dentro del botón y aria-label="Enviar formulario"
+
+<!-- Problema 4 -->
+<form>
+    <fieldset>
+        <legend>Género</legend>
+        <input type="radio" name="gender" id="male" value="male">
+        <label for="male">Masculino</label>
+        <input type="radio" name="gender" id="female" value="female">
+        <label for="female">Femenino</label>
+        <input type="radio" name="gender" id="other" value="other">
+        <label for="other">Otro</label>
+    </fieldset>
+    <button type="submit">Enviar</button>
+</form>
+Solucion: Hemos agrupado el <fieldset> y <legend>.
+
+<!-- Problema 5 y 6 (son el mismo ejercicio) -->
+<form>
+    <label for="name">Nombre</label>
+    <input id="name" type="text" aria-required="true">
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email" aria-required="true">
+    <button type="submit">Enviar</button>
+</form>
+Solucion: hemos puesto en el imput aria-required="true".
+
+<!-- Problema 7 -->
+<form>
+    <button type="submit">Enviar</button>
+</form>
+Solucion: hemos sustituido div role="button" por un <button> normal.
+
+<!-- Problema 8 -->
+<form>
+    <label for="name">Nombre</label>
+    <input id="name" type="text">
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email">
+    <input type="image" src="send.png" alt="Enviar formulario">
+</form>
+Solucion: Añadimos Enviar formulario en el alt".
+
+<!-- Problema 9 -->
+<form>  
+    <label for="name">Nombre</label>
+    <input id="name" type="text">
+    <div id="error-message" aria-live="polite"></div>
+    <button type="submit">Enviar</button>
+</form>
+Solución: Añadimos aria-live="polite" al div
+
+<!-- Problema 10 -->
+<form>
+    <label for="search">Buscar</label>
+    <input id="search" type="search" placeholder="Buscar" title="Introduce tu término de búsqueda">
+    <button type="submit">Buscar</button>
+</form>
+Solución: Añadimos el <label> y atributo title al imput
+
+<!-- Problema 11 -->
+<form>   
+    <input type="text" placeholder="Nombre">
+    <input type="email" placeholder="Correo electrónico">
+    <button type="submit">Enviar</button>
+</form>
+Solución: Reordenamos los campos.
+
+<!-- Problema 12 -->
+<form>
+    <label for="options">Elige una opción</label>
+    <select id="options">
+        <option value="1">Opción 1</option>
+        <option value="2">Opción 2</option>
+    </select>
+    <button type="submit">Enviar</button>
+</form>
+Solución: Asociamos el select con un label.
+
+<!-- Problema 13 -->
+<form>
+    <label for="birthday">Fecha de nacimiento</label>
+    <input id="birthday" type="date" placeholder="dd/mm/yyyy">
+    <button type="submit">Enviar</button>
+</form>
+Solución: cambiamos el de type="date".
+
+<!-- Problema 14 -->
+<form>
+    <label for="name">Nombre</label>
+    <input id="name" type="text" aria-describedby="nameError" aria-invalid="true">
+    <span id="nameError" class="error">El nombre es obligatorio</span>
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email" aria-describedby="emailError" aria-invalid="true">
+    <span id="emailError" class="error">El correo electrónico no es válido</span>
+    <button type="submit">Enviar</button>
+</form>
+Solución: Añadimos el aria-invalid y aria-describedby a los imputs
+
+<!-- Problema 15 -->
+<form>
+    <label for="name">Nombre</label>
+    <input id="name" type="text" autocomplete="name">
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email" autocomplete="email">
+    <button type="submit">Enviar</button>
+</form>
+Solución: Añadimos el atributo autocomplete.
+
+<!-- Problema 16 -->
+<form>
+    <label for="name">Nombre</label>
+    <input id="name" type="text" aria-required="true">
+    <button type="submit">Enviar</button>
+</form>
+Solución: Hemos cambiado el aria-required a true".
+
+<!-- Problema 17 -->
+<form>
+    <label for="name">Nombre</label>
+    <input id="name" type="text" aria-describedby="nameHelp">
+    <small id="nameHelp">Introduce tu nombre completo</small>
+    <button type="submit">Enviar</button>
+</form>
+Solución: añadir el aria-describedby al imput
+
+<!-- Problema 18 -->
+<form>
+    <label for="subscription">¿Quieres suscribirte?</label>
+    <select id="subscription" aria-controls="email-field" onchange="showEmailField()">
+        <option value="no">No</option>
+        <option value="yes">Sí</option>
+    </select>
+    <div id="email-field" aria-live="polite" style="display: none;">
+        <label for="email">Correo electrónico</label>
+        <input id="email" type="email">
+    </div>
+    <button type="submit">Enviar</button>
+</form>
+Solución: Añadimos aria-controls al <select> y aria-live al <div>
+
+<!-- Problema 19 -->
+<form>
+    <label for="volume">Volumen</label>
+    <input id="volume" type="range" min="0" max="100" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+    <button type="submit">Enviar</button>
+</form>
+Solución: Añadimos los atributos de aria-valuemin, aria-valuemax, aria-valuenow.

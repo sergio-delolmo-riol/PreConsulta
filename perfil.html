@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - Centro de Triaje Digital</title>
+    <link rel="icon" type="image/svg+xml" href="media/icons/cardiology_24dp_007AFF_FILL1_wght300_GRAD-25_opsz24.svg">
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
@@ -15,17 +16,32 @@
     <main id="main-content" role="main" class="profile-main">
         <ul class="menu-list">
             <li class="menu-item-single">
-                <a href="#" class="menu-button" aria-label="Acceder a mi cuenta">Mi cuenta</a>
+                <a href="perfil-usuario.html" class="menu-button" aria-label="Acceder a mi cuenta">
+                    <span class="menu-icon">👤</span>
+                    <span class="menu-text">Mi cuenta</span>
+                </a>
             </li>
             
             <li class="menu-group">
-                <a href="#" class="menu-button" aria-label="Obtener ayuda">Ayuda</a>
-                <a href="#" class="menu-button" aria-label="Leer las condiciones generales">Condiciones generales</a>
-                <a href="#" class="menu-button" aria-label="Leer la política de privacidad">Política de privacidad</a>
+                <a href="#" class="menu-button" aria-label="Obtener ayuda">
+                    <span class="menu-icon">❓</span>
+                    <span class="menu-text">Ayuda</span>
+                </a>
+                <a href="#" class="menu-button" aria-label="Leer las condiciones generales">
+                    <span class="menu-icon">📄</span>
+                    <span class="menu-text">Condiciones generales</span>
+                </a>
+                <a href="#" class="menu-button" aria-label="Leer la política de privacidad">
+                    <span class="menu-icon">🔒</span>
+                    <span class="menu-text">Política de privacidad</span>
+                </a>
             </li>
 
             <li class="menu-item-single">
-                <a href="#" class="menu-button" aria-label="Salir o eliminar mi cuenta">Salir/Eliminar cuenta</a>
+                <a href="login.html" class="menu-button" aria-label="Salir o eliminar mi cuenta">
+                    <span class="menu-icon">🚪</span>
+                    <span class="menu-text">Salir/Eliminar cuenta</span>
+                </a>
             </li>
         </ul>
     </main>
@@ -34,20 +50,20 @@
         <ul>
             <li>
                 <a href="index.html" aria-label="Ir a la página de inicio" class="nav-button">
-                    <!-- Icono Home -->
-                    <span class="nav-text">Home</span>
+                    <img src="media/icons/home_24dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="Icono de inicio" class="nav-icon">
+                    <span class="nav-text">Inicio</span>
                 </a>
             </li>
             <li>
                 <a href="perfil.html" aria-label="Ir a tu perfil de usuario" class="nav-button active">
-                    <!-- Icono Perfil -->
+                    <img src="media/icons/person_heart_24dp_007AFF_FILL1_wght500_GRAD0_opsz24.svg" alt="Icono de perfil" class="nav-icon">
                     <span class="nav-text">Perfil</span>
                 </a>
             </li>
             <li>
                 <a href="tel:112" aria-label="Llamar a emergencias" class="nav-button call-button">
-                    <!-- Icono Llamada -->
-                    <span class="nav-text">Llamar</span>
+                    <img src="media/icons/phone_enable_emergency_red.svg" alt="Icono de teléfono" class="nav-icon">
+                    <span class="nav-text">Llamada emergencia</span>
                 </a>
             </li>
         </ul>

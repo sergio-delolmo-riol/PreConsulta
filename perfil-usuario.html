@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario - PreConsulta</title>
+    <link rel="icon" type="image/svg+xml" href="media/icons/cardiology_24dp_007AFF_FILL1_wght300_GRAD-25_opsz24.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="full-height-body">
+    <main role="main" id="main-content">
+        <section class="profile-section" aria-labelledby="profile-header">
+            <!-- Header -->
+            <div class="profile-header" id="profile-header">
+                <div class="profile-header-top">
+                    <h1 class="profile-welcome">
+                        <span class="profile-greeting">Bienvenido,</span>
+                        <span class="profile-username" id="userName">Juan Torres</span>
+                    </h1>
+                    <!-- <button class="profile-close-button" aria-label="Cerrar perfil" onclick="window.location.href='index.html'">✕</button> -->
+                </div>
+
+                <!-- Navigation tabs -->
+                <nav class="profile-nav" role="tablist" aria-label="Navegación de perfil">
+                    <div class="avatar-alert" aria-label="Alerta" role="img">⚠️</div>
+                    <button class="profile-tab active" role="tab" aria-selected="true" aria-controls="datos-panel" id="datos-tab">
+                        Datos
+                    </button>
+                    <button class="profile-tab" role="tab" aria-selected="false" aria-controls="historial-panel" id="historial-tab">
+                        Historial Consultas
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Data Panel -->
+            <div class="profile-content-panel active" id="datos-panel" role="tabpanel" aria-labelledby="datos-tab">
+                <div class="profile-data-container">
+                    <div class="data-item">
+                        <span class="data-label">Nombre:</span>
+                        <span class="data-value" id="dataName">Juan Torres Mena</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="data-label">Correo electrónico:</span>
+                        <span class="data-value" id="dataEmail">ejemplo@gmail.com</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="data-label">Teléfono:</span>
+                        <span class="data-value" id="dataPhone">698 24 47 12</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="data-label">Dirección:</span>
+                        <span class="data-value" id="dataAddress">No hay dirección registrada</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="data-label">Limitaciones:</span>
+                        <span class="data-value" id="dataLimitations">No hay limitaciones registradas</span>
+                    </div>
+                    
+                    <div class="data-item">
+                        <span class="data-label">Fecha de nacimiento:</span>
+                        <span class="data-value" id="dataAge">No hay fecha de nacimiento registrada</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historial Panel -->
+            <div class="profile-content-panel" id="historial-panel" role="tabpanel" aria-labelledby="historial-tab">
+                <div class="historial-empty">
+                    <p>No ha realizado todavía ninguna consulta</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" role="navigation" aria-label="Menú principal">
+        <ul>
+            <li>
+                <a href="index.html" aria-label="Ir a la página de inicio" class="nav-button">
+                    <img src="media/icons/home_24dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="Icono de inicio" class="nav-icon">
+                    <span class="nav-text">Inicio</span>
+                </a>
+            </li>
+            <li>
+                <a href="perfil.html" aria-label="Ir a tu perfil de usuario" class="nav-button active">
+                    <img src="media/icons/person_heart_24dp_007AFF_FILL1_wght500_GRAD0_opsz24.svg" alt="Icono de perfil" class="nav-icon">
+                    <span class="nav-text">Perfil</span>
+                </a>
+            </li>
+            <li>
+                <a href="tel:112" aria-label="Llamar a emergencias" class="nav-button call-button">
+                    <img src="media/icons/phone_enable_emergency_red.svg" alt="Icono de teléfono" class="nav-icon">
+                    <span class="nav-text">Llamada emergencia</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.profile-tab');
+        const panels = document.querySelectorAll('.profile-content-panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and panels
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                panels.forEach(p => p.classList.remove('active'));
+
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+
+                // Show corresponding panel
+                const panelId = tab.getAttribute('aria-controls');
+                const panel = document.getElementById(panelId);
+                panel.classList.add('active');
+            });
+        });
+
+        // Simulate loading user data (in a real app, this would come from a database)
+        window.addEventListener('DOMContentLoaded', () => {
+            // You can update these values dynamically
+            const userData = {
+                name: 'Juan Torres Mena',
+                email: 'ejemplo@gmail.com',
+                phone: '698 24 47 12',
+                address: 'No hay dirección registrada',
+                limitations: 'No hay limitaciones registradas',
+                age: 'No hay fecha de nacimiento registrada'
+            };
+
+            // Update the data in the DOM
+            document.getElementById('dataName').textContent = userData.name;
+            document.getElementById('dataEmail').textContent = userData.email;
+            document.getElementById('dataPhone').textContent = userData.phone;
+            document.getElementById('dataAddress').textContent = userData.address;
+            document.getElementById('dataLimitations').textContent = userData.limitations;
+            document.getElementById('dataAge').textContent = userData.age;
+            document.getElementById('userName').textContent = userData.name.split(' ')[0] + ' ' + userData.name.split(' ')[1];
+        });
+    </script>
+</body>
+
+</html>

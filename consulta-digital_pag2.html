@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evidencia de la Consulta - PreConsulta</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body class="full-height-body">
 
     <header class="consult-header" role="banner">
@@ -22,8 +24,10 @@
     </header>
 
     <main class="consult-main" role="main">
+        <hr class="status-divider">
         <div class="evidence-container">
-            <div class="evidence-upload-box" role="button" tabindex="0" aria-label="Adjuntar una imagen sobre el motivo de su consulta">
+            <div class="evidence-upload-box" role="button" tabindex="0"
+                aria-label="Adjuntar una imagen sobre el motivo de su consulta">
                 <span class="upload-icon" aria-hidden="true">📷</span>
                 <span class="upload-text">Adjunte una imagen sobre el motivo de su consulta.</span>
                 <input type="file" accept="image/*" class="sr-only" id="file-upload">
@@ -34,9 +38,13 @@
 
     <footer class="consult-footer" role="contentinfo">
         <a href="consulta-digital_pag1.html" class="back-button" aria-label="Volver al paso anterior">←</a>
-        <button class="next-button" disabled>Siguiente</button>
-        <div class="step-counter" aria-label="Paso 2 de 3">2/3 pasos</div>
+        <a href="pantalla_consultaAprovada.html" class="next-button">Siguiente</a>
+        <div class="step-counter" aria-label="Paso 2 de 3">
+            <span class="counter-number">2/3</span>
+            <span class="counter-text">pasos</span>
+        </div>
     </footer>
 
 </body>
+
 </html>

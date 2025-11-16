@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Aprobada - PreConsulta</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="full-height-body">
+
+    <header class="consult-header" role="banner">
+        <div class="header-content">
+            <div>
+                <h1 class="approved-title">
+                    Consulta aprobada.
+                </h1>
+                <p>Su consulta ha sido aprobada, puede dirigirse a su hospital recurrente.</p>
+            </div>
+            <a href="index.html" class="close-button" aria-label="Cerrar y volver al inicio">×</a>
+        </div>
+    </header>
+
+    <main class="consult-main approved-main" role="main">
+        <hr class="status-divider">
+        <div class="info-section">
+            <h3 class="info-label">Grado urgencia:</h3>
+            <div class="info-box urgency-box">
+                <span class="info-value">MEDIO</span>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3 class="info-label">Tiempo de espera medio en el hospital:</h3>
+            <div class="info-box time-box">
+                <span class="info-value">8 minutos</span>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3 class="info-label">Número de pacientes delante suya:</h3>
+            <div class="info-box patients-box">
+                <span class="info-value">3</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="consult-footer" role="contentinfo">
+        <a href="pantalla_consultaAprovada.html" class="back-button" aria-label="Volver al paso anterior">←</a>
+        <button id="confirmButton" class="confirm-attendance-button"
+            aria-label="Confirmar asistencia al hospital">Confirmar asistencia</button>
+        <div class="step-counter" aria-label="Paso 3 de 3">
+            <span class="counter-number">3/3</span>
+            <span class="counter-text">pasos</span>
+        </div>
+    </footer>
+
+    <script>
+        const confirmButton = document.getElementById('confirmButton');
+
+        confirmButton.addEventListener('click', function () {
+            this.classList.add('confirmed');
+            this.textContent = 'Asistencia confirmada';
+            this.disabled = true;
+        });
+    </script>
+
+</body>
+
+</html>

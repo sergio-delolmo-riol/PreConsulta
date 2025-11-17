@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda - PreConsulta</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+    <header class="secondary-header" role="banner">
+        <h1>Ayuda</h1>
+    </header>
+
+    <main id="main-content" role="main" class="profile-main">
+        <section aria-labelledby="help-intro">
+            <h2 id="help-intro">¿Necesitas ayuda?</h2>
+            <p>En esta sección encontrarás información rápida para usar la aplicación PreConsulta, así como vías de contacto si necesitas soporte.</p>
+        </section>
+
+        <section aria-labelledby="how-it-works">
+            <h3 id="how-it-works">¿Cómo funciona PreConsulta?</h3>
+            <ol>
+                <li>Pulsa "Iniciar consulta" en la pantalla principal para comenzar tu triaje.</li>
+                <li>Responde a las preguntas de forma honesta y concisa; puedes usar voz o texto cuando esté disponible.</li>
+                <li>Si tu caso es urgente, utiliza el botón de Llamada de Emergencia o contacta al teléfono indicado.</li>
+            </ol>
+        </section>
+
+        <section aria-labelledby="accessibility">
+            <h3 id="accessibility">Accesibilidad</h3>
+            <p>PreConsulta está diseñado siguiendo principios de accesibilidad (WCAG 2.1 Nivel AA):</p>
+            <ul>
+                <li>Contraste suficiente para textos.</li>
+                <li>Elementos táctiles amplios (mín. 44×44 px).</li>
+                <li>Etiquetas ARIA en controles principales y navegación semántica.</li>
+                <li>Compatibilidad con lectura por pantalla y navegación por teclado.</li>
+            </ul>
+            <p>Si detectas problemas de accesibilidad, por favor contacta con el equipo (ver sección de contacto).</p>
+        </section>
+
+        <section aria-labelledby="faq">
+            <h3 id="faq">Preguntas frecuentes (FAQ)</h3>
+            <dl>
+                <dt>¿La información médica se guarda en mi teléfono?</dt>
+                <dd>No: la información se envía y almacena en servidores seguros según la política de privacidad. Consulta <a href="privacidad.html">Política de privacidad</a> para más detalles.</dd>
+
+                <dt>¿Puedo editar mis datos personales?</dt>
+                <dd>Sí, desde la sección "Mi cuenta" puedes revisar y actualizar tu información básica.</dd>
+
+                <dt>¿Qué hago si tengo una emergencia?</dt>
+                <dd>Usa el enlace de <strong>Llamada emergencia</strong> o llama directamente al número de emergencias de tu país (por ejemplo 112).</dd>
+            </dl>
+        </section>
+
+        <section aria-labelledby="contact">
+            <h3 id="contact">Contacto</h3>
+            <p>Soporte por correo: <a href="mailto:soporte@preconsulta.example">soporte@preconsulta.example</a></p>
+            <p>Teléfono de atención (no emergencia): <a href="tel:+34900111233">+34 900 11 23 3</a></p>
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav" role="navigation" aria-label="Menú principal">
+        <ul>
+            <li>
+                <a href="index.html" class="nav-button" aria-label="Ir a inicio">
+                    <img src="media/icons/home_24dp_007AFF_FILL1_wght200_GRAD200_opsz24.svg" alt="Inicio" class="nav-icon">
+                    <span class="nav-text">Inicio</span>
+                </a>
+            </li>
+            <li>
+                <a href="perfil.html" class="nav-button" aria-label="Ir a perfil">
+                    <img src="media/icons/person_heart_24dp_000000_FILL0_wght500_GRAD0_opsz24.svg" alt="Perfil" class="nav-icon">
+                    <span class="nav-text">Perfil</span>
+                </a>
+            </li>
+            <li>
+                <a href="tel:112" class="nav-button call-button" aria-label="Llamar a emergencias">
+                    <img src="media/icons/phone_enable_emergency_red.svg" alt="Llamada emergencia" class="nav-icon">
+                    <span class="nav-text">Llamada emergencia</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</body>
+</html>

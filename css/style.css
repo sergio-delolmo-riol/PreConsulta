@@ -155,9 +155,17 @@ body {
 .bottom-nav ul {
     list-style: none;
     margin: 0;
-    padding: 10px 20px;
+    /* dejar solo padding vertical para que los items llenen el ancho */
+    padding: 10px 0;
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+}
+
+/* Cada elemento de la lista ocupa el mismo espacio para centrar su contenido */
+.bottom-nav ul li {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -165,12 +173,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    /* Center both icon and text vertically */
+    justify-content: center;
     text-decoration: none;
     color: #999;
     font-size: 24px;
-    gap: 4px;
-    padding: 8px 10px;
+    gap: 6px;
+    /* ocupar todo el ancho del <li> para que el centrado sea correcto */
+    width: 100%;
+    max-width: none;
+    padding: 8px 6px;
     min-height: 70px;
 }
 
@@ -181,6 +193,9 @@ body {
     opacity: 0.5;
     filter: grayscale(1);
     transition: all 0.3s ease;
+    /* ensure icon sits above the text and has consistent spacing */
+    display: block;
+    margin-bottom: 4px;
 }
 
 .bottom-nav .nav-button .nav-text {
@@ -192,6 +207,10 @@ body {
     text-align: center;
     line-height: 1.2;
     font-weight: bold;
+    /* permitir que textos largos se envuelvan y se centren dentro del botón */
+    white-space: normal;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .bottom-nav .nav-button.active {
@@ -258,6 +277,17 @@ body {
     width: 100%;
 }
 
+/* Forzar que cada elemento de la lista de menú ocupe una fila completa (una debajo de otra) */
+.menu-list > li {
+    display: block;
+    width: 100%;
+}
+
+.menu-item-single,
+.menu-group {
+    width: 100%;
+}
+
 .menu-item-single,
 .menu-group {
     background-color: #cce7ff;
@@ -283,12 +313,19 @@ body {
 }
 
 .menu-icon {
+    /* Works for both inline emoji/spans and <img> icons */
     font-size: 1.5rem;
     margin-right: 15px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     min-width: 30px;
+    /* Default image size for svg/png icons used in menu buttons */
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    /* For replaced elements like <img>, ensure the graphic preserves aspect */
+    object-fit: contain;
 }
 
 .menu-text {

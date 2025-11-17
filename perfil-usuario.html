@@ -10,6 +10,44 @@
 </head>
 
 <body class="full-height-body">
+    <!-- Overlay oscuro -->
+    <div class="form-overlay" id="formOverlay"></div>
+
+    <!-- Botón flotante de alerta para datos faltantes -->
+    <button class="floating-alert-button" id="floatingAlertBtn" aria-label="Completar datos personales faltantes" aria-expanded="false">
+        <span class="alert-icon" aria-hidden="true">⚠️</span>
+        <span class="alert-text">Completa tu perfil</span>
+    </button>
+
+    <!-- Formulario desplegable para datos faltantes -->
+    <div class="missing-data-form" id="missingDataForm" role="dialog" aria-labelledby="formTitle" aria-hidden="true">
+        <div class="form-header">
+            <h2 id="formTitle">Completa tu información</h2>
+            <button class="form-close-btn" id="formCloseBtn" aria-label="Cerrar formulario">✕</button>
+        </div>
+        <form id="userDataForm">
+            <div class="form-group">
+                <label for="addressInput">Dirección completa:</label>
+                <input type="text" id="addressInput" name="address" placeholder="Ej: Calle Principal 123, Madrid" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="limitationsInput">Limitaciones o condiciones médicas:</label>
+                <textarea id="limitationsInput" name="limitations" rows="3" placeholder="Ej: Alergias, movilidad reducida, etc."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="birthDateInput">Fecha de nacimiento:</label>
+                <input type="date" id="birthDateInput" name="birthDate" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" id="cancelBtn">Cancelar</button>
+                <button type="submit" class="btn-save">Guardar</button>
+            </div>
+        </form>
+    </div>
+
     <main role="main" id="main-content">
         <section class="profile-section" aria-labelledby="profile-header">
             <!-- Header -->
@@ -24,7 +62,7 @@
 
                 <!-- Navigation tabs -->
                 <nav class="profile-nav" role="tablist" aria-label="Navegación de perfil">
-                    <div class="avatar-alert" aria-label="Alerta" role="img">⚠️</div>
+                    <!-- <div class="avatar-alert" aria-label="Alerta" role="img">⚠️</div> -->
                     <button class="profile-tab active" role="tab" aria-selected="true" aria-controls="datos-panel" id="datos-tab">
                         Datos
                     </button>
@@ -147,6 +185,119 @@
             document.getElementById('dataLimitations').textContent = userData.limitations;
             document.getElementById('dataAge').textContent = userData.age;
             document.getElementById('userName').textContent = userData.name.split(' ')[0] + ' ' + userData.name.split(' ')[1];
+
+            // Verificar si hay datos faltantes y mostrar/ocultar el botón de alerta
+            checkMissingData();
+        });
+
+        // ========================================
+        // FUNCIONALIDAD DEL FORMULARIO FLOTANTE
+        // ========================================
+
+        const floatingBtn = document.getElementById('floatingAlertBtn');
+        const missingDataForm = document.getElementById('missingDataForm');
+        const formOverlay = document.getElementById('formOverlay');
+        const formCloseBtn = document.getElementById('formCloseBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const userDataForm = document.getElementById('userDataForm');
+
+        // Verificar si hay datos faltantes
+        function checkMissingData() {
+            const address = document.getElementById('dataAddress').textContent;
+            const limitations = document.getElementById('dataLimitations').textContent;
+            const age = document.getElementById('dataAge').textContent;
+
+            const hasMissingData = 
+                address.includes('No hay') || 
+                limitations.includes('No hay') || 
+                age.includes('No hay');
+
+            // Mostrar u ocultar el botón flotante según haya datos faltantes
+            if (hasMissingData) {
+                floatingBtn.style.display = 'flex';
+            } else {
+                floatingBtn.style.display = 'none';
+            }
+        }
+
+        // Abrir formulario
+        function openForm() {
+            missingDataForm.classList.add('active');
+            formOverlay.classList.add('active');
+            missingDataForm.setAttribute('aria-hidden', 'false');
+            floatingBtn.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden'; // Prevenir scroll del body
+            
+            // Enfocar el primer campo
+            setTimeout(() => {
+                document.getElementById('addressInput').focus();
+            }, 100);
+        }
+
+        // Cerrar formulario
+        function closeForm() {
+            missingDataForm.classList.remove('active');
+            formOverlay.classList.remove('active');
+            missingDataForm.setAttribute('aria-hidden', 'true');
+            floatingBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = ''; // Restaurar scroll
+            floatingBtn.focus(); // Devolver el foco al botón
+        }
+
+        // Event listeners
+        floatingBtn.addEventListener('click', openForm);
+        formCloseBtn.addEventListener('click', closeForm);
+        cancelBtn.addEventListener('click', closeForm);
+        formOverlay.addEventListener('click', closeForm);
+
+        // Cerrar con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && missingDataForm.classList.contains('active')) {
+                closeForm();
+            }
+        });
+
+        // Guardar datos del formulario
+        userDataForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Obtener valores del formulario
+            const address = document.getElementById('addressInput').value.trim();
+            const limitations = document.getElementById('limitationsInput').value.trim();
+            const birthDate = document.getElementById('birthDateInput').value;
+
+            // Actualizar los datos en la vista
+            if (address) {
+                document.getElementById('dataAddress').textContent = address;
+            }
+
+            if (limitations) {
+                document.getElementById('dataLimitations').textContent = limitations;
+            } else {
+                document.getElementById('dataLimitations').textContent = 'Sin limitaciones registradas';
+            }
+
+            if (birthDate) {
+                const date = new Date(birthDate);
+                const formattedDate = date.toLocaleDateString('es-ES', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                document.getElementById('dataAge').textContent = formattedDate;
+            }
+
+            // Limpiar formulario
+            userDataForm.reset();
+
+            // Cerrar formulario
+            closeForm();
+
+            // Verificar si aún hay datos faltantes
+            checkMissingData();
+
+            // Mostrar mensaje de éxito (opcional)
+            alert('✅ Datos guardados correctamente');
         });
     </script>
 </body>

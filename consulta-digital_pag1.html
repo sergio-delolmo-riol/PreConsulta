@@ -27,11 +27,13 @@
         <div class="input-method-selector" role="tablist" aria-label="Método de entrada de síntomas">
             <button id="tab-audio" role="tab" aria-selected="true" aria-controls="panel-audio"
                 class="tab-button active">
-                Audio 🎤
+                <img src="media/icons/mic_24dp_000000_FILL1_wght300_GRAD200_opsz24.svg" alt="" class="tab-icon" aria-hidden="true">
+                Audio
             </button>
             <div class="separator"></div>
             <button id="tab-texto" role="tab" aria-selected="false" aria-controls="panel-texto" class="tab-button">
-                Texto 📝
+                <img src="media/icons/comment_24dp_000000_FILL1_wght300_GRAD-25_opsz24.svg" alt="" class="tab-icon" aria-hidden="true">
+                Texto
             </button>
         </div>
 
@@ -39,7 +41,7 @@
         <div class="panels-container">
             <div id="panel-audio" role="tabpanel" aria-labelledby="tab-audio" class="tab-panel active">
                 <button class="record-button" aria-label="Iniciar grabación de audio">
-                    <!-- Icono de micrófono -->
+                    <img src="media/icons/mic_24dp_000000_FILL1_wght300_GRAD200_opsz24.svg" alt="" class="record-icon" aria-hidden="true">
                 </button>
                 <div class="text-container">
                     <label for="transcribed-text" class="sr-only">Texto transcrito</label>

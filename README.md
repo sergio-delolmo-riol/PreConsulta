@@ -101,3 +101,195 @@ Llamada de Emergencia: Una función de acceso rápido para contactar a los servi
 El desarrollo continuará desde esta base para construir los demás flujos (captura de síntomas, visualización de estado de cola, etc.) y las interfaces para el personal sanitario (Enfermería, Celador), siempre respetando los principios de accesibilidad y el contexto de uso detallados.
 
 En la carpeta media/pantallas se encuentran las diferentes pantallas que se deberan de implementar para la pagina web
+
+
+-- ============================================
+--   BASE DE DATOS CENTRO DE TRIAJE DIGITAL
+-- ============================================
+
+CREATE DATABASE IF NOT EXISTS centro_triaje_digital;
+USE centro_triaje_digital;
+
+-- ============================================
+-- 1. TABLA USUARIO
+-- ============================================
+
+CREATE TABLE Usuario (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(150) NOT NULL,
+    dni VARCHAR(20) UNIQUE,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    telefono VARCHAR(20),
+    password VARCHAR(255) NOT NULL
+);
+
+-- ============================================
+-- 2. TABLA PACIENTE
+-- ============================================
+
+CREATE TABLE Paciente (
+    id_paciente INT PRIMARY PRIMARY KEY,
+    fecha_nacimiento DATE,
+    seguro_medico VARCHAR(100),
+    contacto_familiar VARCHAR(150),
+    FOREIGN KEY (id_paciente) REFERENCES Usuario(id_usuario)
+);
+
+-- ============================================
+-- 3. TABLA ENFERMERO (INCLUYE DOCTORES)
+-- ============================================
+
+CREATE TABLE Enfermero (
+    id_enfermero INT PRIMARY KEY,
+    numero_colegiado VARCHAR(50),
+    especialidad VARCHAR(100),
+    FOREIGN KEY (id_enfermero) REFERENCES Usuario(id_usuario)
+);
+
+-- ============================================
+-- 4. TABLA CELADOR
+-- ============================================
+
+CREATE TABLE Celador (
+    id_celador INT PRIMARY KEY,
+    area_asignada VARCHAR(100),
+    turno ENUM('mañana','tarde','noche','rotativo'),
+    estado ENUM('activo','inactivo') DEFAULT 'activo',
+    FOREIGN KEY (id_celador) REFERENCES Usuario(id_usuario)
+);
+
+-- ============================================
+-- 5. TABLA PRIORIDAD
+-- ============================================
+
+CREATE TABLE Prioridad (
+    id_prioridad INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_prioridad ENUM('alta','media','baja') NOT NULL,
+    color_hex CHAR(7),
+    tiempo_max_atencion INT NOT NULL
+);
+
+-- ============================================
+-- 6. TABLA BOX
+-- ============================================
+
+CREATE TABLE Box (
+    id_box INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50),
+    estado ENUM('libre','ocupado','limpieza') DEFAULT 'libre'
+);
+
+-- ============================================
+-- 7. TABLA EPISODIO DE URGENCIA
+-- ============================================
+
+CREATE TABLE Episodio_Urgencia (
+    id_episodio INT AUTO_INCREMENT PRIMARY KEY,
+    id_paciente INT NOT NULL,
+    fecha_llegada DATETIME DEFAULT CURRENT_TIMESTAMP,
+    box_asignado INT NULL,
+    prioridad_actual INT NULL,
+    tiempo_estimado_espera INT NULL,
+
+    FOREIGN KEY (id_paciente) REFERENCES Paciente(id_paciente),
+    FOREIGN KEY (box_asignado) REFERENCES Box(id_box),
+    FOREIGN KEY (prioridad_actual) REFERENCES Prioridad(id_prioridad)
+);
+
+-- ============================================
+-- 8. TABLA TRIAJE
+-- ============================================
+
+CREATE TABLE Triaje (
+    id_triaje INT AUTO_INCREMENT PRIMARY KEY,
+    id_episodio INT NOT NULL,
+    id_enfermero INT NOT NULL,
+    fecha_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+    prioridad_asignada INT NOT NULL,
+    nivel_consciencia VARCHAR(50),
+    sintomas_texto TEXT,
+    sintomas_audio_url VARCHAR(255),
+
+    FOREIGN KEY (id_episodio) REFERENCES Episodio_Urgencia(id_episodio),
+    FOREIGN KEY (id_enfermero) REFERENCES Enfermero(id_enfermero),
+    FOREIGN KEY (prioridad_asignada) REFERENCES Prioridad(id_prioridad)
+);
+
+-- ============================================
+-- 9. TABLA HISTORIAL CLÍNICO (SUSTITUYE REEVALUACIÓN)
+-- ============================================
+
+CREATE TABLE Historial_Clinico (
+    id_historial INT AUTO_INCREMENT PRIMARY KEY,
+    id_paciente INT NOT NULL,
+    id_enfermero INT NOT NULL,
+    fecha_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+    descripcion TEXT,
+    diagnostico TEXT,
+    tratamiento TEXT,
+
+    FOREIGN KEY (id_paciente) REFERENCES Paciente(id_paciente),
+    FOREIGN KEY (id_enfermero) REFERENCES Enfermero(id_enfermero)
+);
+
+-- ============================================
+-- 10. TABLA ASIGNACIÓN DE CELADOR
+-- ============================================
+
+CREATE TABLE Asignacion_Celador (
+    id_asignacion INT AUTO_INCREMENT PRIMARY KEY,
+    id_celador INT NOT NULL,
+    id_episodio INT NOT NULL,
+    fecha_asignacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_finalizacion DATETIME NULL,
+    estado ENUM('pendiente','en_curso','finalizado') DEFAULT 'pendiente',
+
+    FOREIGN KEY (id_celador) REFERENCES Celador(id_celador),
+    FOREIGN KEY (id_episodio) REFERENCES Episodio_Urgencia(id_episodio)
+);
+
+-- ============================================
+-- 11. TABLA ATENCIÓN MÉDICA
+-- ============================================
+
+CREATE TABLE Atencion_Medica (
+    id_atencion INT AUTO_INCREMENT PRIMARY KEY,
+    id_episodio INT NOT NULL,
+    id_enfermero INT NOT NULL,
+    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+    diagnostico TEXT,
+    tratamiento TEXT,
+
+    FOREIGN KEY (id_episodio) REFERENCES Episodio_Urgencia(id_episodio),
+    FOREIGN KEY (id_enfermero) REFERENCES Enfermero(id_enfermero)
+);
+
+-- ============================================
+-- 12. TABLA NOTIFICACIONES
+-- ============================================
+
+CREATE TABLE Notificacion (
+    id_notificacion INT AUTO_INCREMENT PRIMARY KEY,
+    id_episodio INT NOT NULL,
+    tipo ENUM('estado','prioridad','turno','movimiento','otro') NOT NULL,
+    mensaje TEXT NOT NULL,
+    fecha_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (id_episodio) REFERENCES Episodio_Urgencia(id_episodio)
+);
+
+-- ============================================
+-- 13. TABLA LOG DE ACCIONES
+-- ============================================
+
+CREATE TABLE Log_Acciones (
+    id_log INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NULL,
+    id_episodio INT NULL,
+    accion VARCHAR(255),
+    fecha_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (id_episodio) REFERENCES Episodio_Urgencia(id_episodio)
+);

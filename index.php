@@ -1,0 +1,74 @@
+<?php
+/**
+ * Página Principal
+ * Proyecto: PreConsulta - Centro de Triaje Digital
+ */
+
+require_once 'config/session_manager.php';
+
+// Verificar autenticación
+requireAuth();
+checkSession();
+
+$userName = getUserName();
+$nombreCorto = explode(' ', $userName)[0] ?? 'Usuario';
+
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Triaje Digital</title>
+    <link rel="icon" type="image/svg+xml" href="media/icons/cardiology_24dp_007AFF_FILL1_wght300_GRAD-25_opsz24.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="main-header" role="banner">
+        <div class="header-content">
+            <h1>
+                <span class="line1">Centro de</span>
+                <span class="line2">Triaje Digital</span>
+            </h1>
+            <div class="header-icon" role="img" aria-label="Logo de la aplicación">
+                <img src="media/icons/cardiology_24dp_007AFF_FILL1_wght300_GRAD-25_opsz24.svg" alt="Logo PreConsulta" class="app-logo">
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="triage-section" aria-labelledby="triage-button-label">
+            <h2 id="triage-button-label" class="sr-only">Iniciar triaje</h2>
+            <a href="consulta-digital_pag1.php" class="triage-button" aria-label="Iniciar proceso de triaje">
+                <!-- El icono de la cruz roja se añadirá con CSS o como <img> -->
+            </a>
+            <p class="triage-description">Iniciar consulta</p>
+        </section>
+    </main>
+
+    <nav class="bottom-nav" role="navigation" aria-label="Menú principal">
+        <ul>
+            <li>
+                <a href="index.php" aria-label="Ir a la página de inicio" class="nav-button active">
+                    <img src="media/icons/home_24dp_007AFF_FILL1_wght200_GRAD200_opsz24.svg" alt="Icono de inicio" class="nav-icon">
+                    <span class="nav-text">Inicio</span>
+                </a>
+            </li>
+            <li>
+                <a href="perfil-usuario.php" aria-label="Ir a tu perfil de usuario" class="nav-button">
+                    <img src="media/icons/person_heart_24dp_000000_FILL0_wght500_GRAD0_opsz24.svg" alt="Icono de perfil" class="nav-icon">
+                    <span class="nav-text">Perfil</span>
+                </a>
+            </li>
+            <li>
+                <a href="tel:112" aria-label="Llamar a emergencias" class="nav-button call-button">
+                    <img src="media/icons/phone_enable_emergency_red.svg" alt="Icono de teléfono" class="nav-icon">
+                    <span class="nav-text">Llamada emergencia</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</body>
+</html>

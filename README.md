@@ -102,6 +102,53 @@ El desarrollo continuará desde esta base para construir los demás flujos (capt
 
 En la carpeta media/pantallas se encuentran las diferentes pantallas que se deberan de implementar para la pagina web
 
+---
+
+## 🗄️ Base de Datos Implementada
+
+La base de datos MySQL ha sido completamente implementada con:
+
+### 📁 Estructura de Archivos:
+- **`database/scripts/schema.sql`** - Esquema completo de 13 tablas con índices, vistas y triggers
+- **`database/scripts/seed_data.sql`** - Datos de prueba (usuarios, pacientes, episodios)
+- **`config/database.php`** - Configuración de conexión PHP/PDO
+- **`classes/Database.php`** - Clase singleton para gestión de BD con métodos CRUD
+- **`database/README_DATABASE.md`** - Documentación completa de tablas y relaciones
+- **`database/INSTALL.md`** - Guía de instalación paso a paso
+- **`test_connection.php`** - Script de prueba de conexión
+
+### 🏗️ Tablas Principales:
+1. **Usuario** - Tabla base para todos los usuarios
+2. **Paciente, Enfermero, Celador** - Especializaciones de Usuario
+3. **Prioridad** - Niveles de urgencia (5 predefinidos)
+4. **Box** - Salas de atención médica
+5. **Episodio_Urgencia** - Registro de visitas a urgencias
+6. **Triaje** - Evaluación inicial y constantes vitales
+7. **Asignacion_Celador** - Gestión de traslados
+8. **Notificacion** - Sistema de alertas
+9. **Log_Acciones** - Auditoría completa
+
+### 🚀 Instalación Rápida:
+```bash
+# 1. Crear base de datos
+mysql -u root -p < database/scripts/schema.sql
+
+# 2. Cargar datos de prueba
+mysql -u root -p < database/scripts/seed_data.sql
+
+# 3. Configurar config/database.php con tus credenciales
+
+# 4. Probar conexión
+php test_connection.php
+```
+
+### 🔐 Usuario de Prueba:
+- **Email:** juan.torres@email.com
+- **Contraseña:** PreConsulta2024!
+
+**Ver documentación completa:** [`database/README_DATABASE.md`](database/README_DATABASE.md)
+
+---
 
 -- ============================================
 --   BASE DE DATOS CENTRO DE TRIAJE DIGITAL

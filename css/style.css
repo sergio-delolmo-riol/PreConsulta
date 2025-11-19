@@ -1347,6 +1347,70 @@ body {
     margin: 0;
 }
 
+/* Historial list */
+.historial-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+}
+
+.historial-item {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.historial-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.historial-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.historial-date {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.historial-prioridad {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.historial-item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.historial-estado {
+    font-size: 14px;
+    color: #007AFF;
+    font-weight: 600;
+    margin: 0;
+}
+
+.historial-sintomas {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+    line-height: 1.4;
+}
+
 /* ===== ESTILOS ESPECÍFICOS PARA PÁGINAS INFORMATIVAS (AYUDA, CONDICIONES, PRIVACIDAD) ===== */
 /* Forzar layout vertical estricto: una columna, contenido apilado de arriba a abajo */
 .info-page {

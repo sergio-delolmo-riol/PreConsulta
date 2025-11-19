@@ -1,0 +1,67 @@
+# ============================================
+# .gitignore para PreConsulta
+# Proyecto: Centro de Triaje Digital
+# ============================================
+
+# Archivos de configuración con credenciales
+config/database.php
+config/*.local.php
+.env
+.env.local
+
+# Logs
+logs/
+*.log
+
+# Backups de base de datos
+*.sql.gz
+*.sql.bz2
+backup_*.sql
+database/backups/
+
+# Archivos temporales de PHP
+*.tmp
+*.cache
+temp/
+tmp/
+
+# Archivos de sesión
+sessions/
+*.session
+
+# Archivos subidos por usuarios
+uploads/
+media/uploads/
+audio_recordings/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs y editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Dependencias (si usas Composer)
+vendor/
+composer.lock
+
+# Node modules (si usas npm)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Archivos de build
+build/
+dist/
+
+# Archivos de prueba
+test_*.php
+debug.php
+_test.php

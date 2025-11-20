@@ -31,13 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $db = Database::getInstance();
             
-            // Buscar usuario por email usando SQL directo
+            // Buscar usuario por email
             $sqlUsuario = "SELECT id_usuario, nombre, apellidos, email, password, estado 
                           FROM Usuario 
                           WHERE email = :email 
                           LIMIT 1";
-            $resultados = $db->query($sqlUsuario, ['email' => $email]);
-            $user = (is_array($resultados) && count($resultados) > 0) ? $resultados[0] : null;
+            $user = $db->selectOne($sqlUsuario, ['email' => $email]);
             
             // DEBUG: Temporal para ver qué está pasando
             if (APP_DEBUG && !$user) {
@@ -46,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 error_log('DEBUG LOGIN: Usuario encontrado: ' . print_r($user, true));
             }
             
-            if ($user && is_array($user)) {
+            if ($user) {
                 // Verificar si la cuenta está activa
                 if (isset($user['estado']) && $user['estado'] !== 'activo') {
                     $error = 'Tu cuenta está inactiva o bloqueada. Contacta con soporte.';
@@ -60,21 +59,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Determinar el tipo de usuario
                     $userType = 'paciente'; // Por defecto
                     
-                    // Verificar si es enfermero usando SQL directo
+                    // Verificar si es enfermero
                     $sqlEnfermero = "SELECT id_enfermero FROM Enfermero WHERE id_enfermero = :id LIMIT 1";
-                    $resultEnfermero = $db->query($sqlEnfermero, ['id' => $user['id_usuario']]);
-                    if (!empty($resultEnfermero)) {
+                    $enfermero = $db->selectOne($sqlEnfermero, ['id' => $user['id_usuario']]);
+                    if ($enfermero) {
                         $userType = 'enfermero';
                     } else {
-                        // Verificar si es celador usando SQL directo
+                        // Verificar si es celador
                         $sqlCelador = "SELECT id_celador FROM Celador WHERE id_celador = :id LIMIT 1";
-                        $resultCelador = $db->query($sqlCelador, ['id' => $user['id_usuario']]);
-                        if (!empty($resultCelador)) {
+                        $celador = $db->selectOne($sqlCelador, ['id' => $user['id_usuario']]);
+                        if ($celador) {
                             $userType = 'celador';
                         }
                     }
                     
-                    // Actualizar último acceso usando SQL directo
+                    // Actualizar último acceso
                     $sqlUpdate = "UPDATE Usuario SET ultimo_acceso = :fecha WHERE id_usuario = :id";
                     $db->query($sqlUpdate, [
                         'fecha' => date('Y-m-d H:i:s'),

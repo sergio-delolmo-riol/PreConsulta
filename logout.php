@@ -5,6 +5,7 @@
  */
 
 require_once 'config/session_manager.php';
+require_once 'config/helpers.php';
 
 // Cerrar sesión
 logoutUser();

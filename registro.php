@@ -22,19 +22,19 @@ $success = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = trim($_POST['nombre'] ?? '');
     $apellidos = trim($_POST['apellidos'] ?? '');
-    $telefono = trim($_POST['telefono'] ?? '');
+    $dni = trim($_POST['dni'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
     
     // Validaciones
-    if (empty($nombre) || empty($apellidos) || empty($telefono) || empty($email) || empty($password)) {
+    if (empty($nombre) || empty($apellidos) || empty($dni) || empty($email) || empty($password)) {
         $error = 'Por favor, complete todos los campos.';
     } else if (strlen($nombre) < 2) {
         $error = 'El nombre debe tener al menos 2 caracteres.';
     } else if (strlen($apellidos) < 2) {
         $error = 'Los apellidos deben tener al menos 2 caracteres.';
-    } else if (!validatePhone($telefono)) {
-        $error = 'El teléfono debe tener 9 dígitos.';
+    } else if (!preg_match('/^[0-9]{8}[A-Za-z]$/', $dni)) {
+        $error = 'El DNI debe tener 8 dígitos seguidos de una letra.';
     } else if (!validateEmail($email)) {
         $error = 'El correo electrónico no es válido.';
     } else if (strlen($password) < 6) {
@@ -45,32 +45,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             // Verificar si el email ya existe
             $sqlCheckEmail = "SELECT id_usuario FROM Usuario WHERE email = :email";
-            $existingUser = $db->query($sqlCheckEmail, ['email' => $email]);
+            $existingUser = $db->selectOne($sqlCheckEmail, ['email' => $email]);
             
-            if (is_array($existingUser) && count($existingUser) > 0) {
+            if ($existingUser) {
                 $error = 'Este correo electrónico ya está registrado.';
             } else {
-                // Comenzar transacción
-                $db->beginTransaction();
-                
                 try {
+                    // Comenzar transacción
+                    $db->beginTransaction();
+                    
                     // Hashear la contraseña
                     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
                     
                     // Insertar en tabla Usuario usando SQL directo
-                    $sqlUsuario = "INSERT INTO Usuario (nombre, apellidos, email, telefono, password, estado) 
-                                  VALUES (:nombre, :apellidos, :email, :telefono, :password, 'activo')";
+                    $sqlUsuario = "INSERT INTO Usuario (nombre, apellidos, email, dni, password, estado) 
+                                  VALUES (:nombre, :apellidos, :email, :dni, :password, 'activo')";
                     
                     $db->query($sqlUsuario, [
                         'nombre' => $nombre,
                         'apellidos' => $apellidos,
                         'email' => $email,
-                        'telefono' => $telefono,
+                        'dni' => $dni,
                         'password' => $passwordHash
                     ]);
                     
                     // Obtener el ID del usuario recién creado
                     $userId = $db->getConnection()->lastInsertId();
+                    
+                    if (!$userId) {
+                        throw new Exception('No se pudo obtener el ID del usuario creado');
+                    }
                     
                     // Insertar en tabla Paciente usando SQL directo
                     $sqlPaciente = "INSERT INTO Paciente (id_paciente) VALUES (:id_paciente)";
@@ -88,8 +92,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header('Refresh: 2; URL=login.php');
                     
                 } catch (Exception $e) {
+                    // Revertir transacción si falla
                     $db->rollback();
-                    throw $e;
+                    
+                    if (APP_DEBUG) {
+                        $error = 'Error al crear la cuenta: ' . $e->getMessage();
+                    } else {
+                        $error = 'Error al crear la cuenta. Por favor, inténtalo de nuevo.';
+                    }
+                    
+                    error_log('Error en registro: ' . $e->getMessage());
                 }
             }
             
@@ -97,8 +109,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (APP_DEBUG) {
                 $error = 'Error de base de datos: ' . $e->getMessage();
             } else {
-                $error = 'Error al crear la cuenta. Inténtalo de nuevo.';
+                $error = 'Error al procesar el registro. Inténtalo de nuevo.';
             }
+            error_log('Error en registro (catch externo): ' . $e->getMessage());
         }
     }
 }
@@ -164,12 +177,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="form-field">
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" name="telefono" placeholder="698 24 47 12" 
-                           value="<?= sanitize($_POST['telefono'] ?? '') ?>"
-                           aria-required="true" aria-describedby="error-telefono" 
-                           autocomplete="tel" aria-invalid="false">
-                    <div class="error" id="error-telefono" aria-live="polite"></div>
+                    <label for="dni">DNI</label>
+                    <input type="text" id="dni" name="dni" placeholder="12345678A" 
+                           value="<?= sanitize($_POST['dni'] ?? '') ?>"
+                           aria-required="true" aria-describedby="error-dni" 
+                           autocomplete="off" aria-invalid="false" maxlength="9">
+                    <div class="error" id="error-dni" aria-live="polite"></div>
                 </div>
 
                 <div class="form-field">

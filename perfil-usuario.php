@@ -17,31 +17,36 @@ checkSession();
 $db = Database::getInstance();
 $userId = getUserId();
 
-// Obtener datos del usuario
-$usuario = $db->selectOne(
-    'Usuario',
-    ['nombre', 'apellidos', 'email', 'telefono'],
-    ['id_usuario' => $userId]
-);
+// Obtener datos del usuario (ahora incluye fecha_nacimiento, direccion y condiciones_medicas)
+$sqlUsuario = "SELECT nombre, apellidos, email, dni, telefono, fecha_nacimiento, direccion, condiciones_medicas 
+               FROM Usuario WHERE id_usuario = :id_usuario";
+$usuario = $db->selectOne($sqlUsuario, ['id_usuario' => $userId]);
 
-// Obtener datos del paciente
-$paciente = $db->selectOne(
-    'Paciente',
-    ['fecha_nacimiento', 'direccion', 'condiciones_medicas', 'grupo_sanguineo', 'alergias', 'seguro_medico'],
-    ['id_paciente' => $userId]
-);
+// Obtener datos adicionales del paciente (datos médicos específicos)
+$sqlPaciente = "SELECT grupo_sanguineo, alergias, seguro_medico 
+                FROM Paciente WHERE id_paciente = :id_paciente";
+$paciente = $db->selectOne($sqlPaciente, ['id_paciente' => $userId]);
 
-// Combinar datos
+// Extraer datos
 $nombreCompleto = $usuario['nombre'] . ' ' . $usuario['apellidos'];
 $nombreCorto = $usuario['nombre'] . ' ' . explode(' ', $usuario['apellidos'])[0];
 $email = $usuario['email'];
-$telefono = formatPhone($usuario['telefono']);
-$direccion = $paciente['direccion'] ?? null;
-$condiciones = $paciente['condiciones_medicas'] ?? null;
-$fechaNacimiento = $paciente['fecha_nacimiento'] ?? null;
+$dni = $usuario['dni'] ?? null;
+$telefono = $usuario['telefono'] ?? null;
+$fechaNacimiento = $usuario['fecha_nacimiento'] ?? null;
+$direccion = $usuario['direccion'] ?? null;
+$condiciones = $usuario['condiciones_medicas'] ?? null;
+
+// Calcular edad si hay fecha de nacimiento
+$edad = null;
+if ($fechaNacimiento) {
+    $fechaNac = new DateTime($fechaNacimiento);
+    $hoy = new DateTime();
+    $edad = $hoy->diff($fechaNac)->y;
+}
 
 // Verificar si hay datos faltantes
-$hasMissingData = empty($direccion) || empty($condiciones) || empty($fechaNacimiento);
+$hasMissingData = empty($dni) || empty($direccion) || empty($condiciones) || empty($fechaNacimiento) || empty($telefono);
 
 ?>
 <!DOCTYPE html>
@@ -53,6 +58,54 @@ $hasMissingData = empty($direccion) || empty($condiciones) || empty($fechaNacimi
     <title>Perfil de Usuario - PreConsulta</title>
     <link rel="icon" type="image/svg+xml" href="media/icons/cardiology_24dp_007AFF_FILL1_wght300_GRAD-25_opsz24.svg">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos para data-item con edad al lado del nombre */
+        .data-item-with-age {
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+        
+        .data-name-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        
+        .data-age-section {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            min-width: 100px;
+        }
+        
+        .data-age-section .data-label {
+            text-align: right;
+        }
+        
+        .data-age-section .data-value {
+            text-align: right;
+        }
+        
+        /* Opción B: Mantener horizontal en móviles */
+        @media (max-width: 768px) {
+            .data-item-with-age {
+                gap: 1rem;
+            }
+            
+            .data-name-section {
+                flex: 1;
+            }
+            
+            .data-age-section {
+                min-width: 80px;
+            }
+        }
+    </style>
 </head>
 
 <body class="full-height-body">
@@ -75,10 +128,26 @@ $hasMissingData = empty($direccion) || empty($condiciones) || empty($fechaNacimi
         </div>
         <form id="userDataForm">
             <div class="form-group">
+                <label for="dniInput">DNI:</label>
+                <input type="text" id="dniInput" name="dni" 
+                       placeholder="Ej: 12345678A" 
+                       value="<?= sanitize($dni ?? '') ?>" maxlength="9" 
+                       pattern="[0-9]{8}[A-Za-z]" 
+                       title="Formato: 8 números seguidos de una letra">
+            </div>
+            
+            <div class="form-group">
+                <label for="phoneInput">Teléfono:</label>
+                <input type="tel" id="phoneInput" name="phone" 
+                       placeholder="Ej: 698 24 47 12" 
+                       value="<?= sanitize($telefono ?? '') ?>" maxlength="15">
+            </div>
+            
+            <div class="form-group">
                 <label for="addressInput">Dirección completa:</label>
                 <input type="text" id="addressInput" name="address" 
                        placeholder="Ej: Calle Principal 123, Madrid" 
-                       value="<?= sanitize($direccion ?? '') ?>" required>
+                       value="<?= sanitize($direccion ?? '') ?>">
             </div>
             
             <div class="form-group">
@@ -125,9 +194,16 @@ $hasMissingData = empty($direccion) || empty($condiciones) || empty($fechaNacimi
             <!-- Data Panel -->
             <div class="profile-content-panel active" id="datos-panel" role="tabpanel" aria-labelledby="datos-tab">
                 <div class="profile-data-container">
-                    <div class="data-item">
-                        <span class="data-label">Nombre:</span>
-                        <span class="data-value" id="dataName"><?= sanitize($nombreCompleto) ?></span>
+                    <!-- Nombre con Edad al lado -->
+                    <div class="data-item data-item-with-age">
+                        <div class="data-name-section">
+                            <span class="data-label">Nombre:</span>
+                            <span class="data-value" id="dataName"><?= sanitize($nombreCompleto) ?></span>
+                        </div>
+                        <div class="data-age-section">
+                            <span class="data-label">Edad:</span>
+                            <span class="data-value" id="dataEdad"><?= $edad !== null ? $edad . ' años' : 'No registrada' ?></span>
+                        </div>
                     </div>
                     
                     <div class="data-item">
@@ -136,8 +212,13 @@ $hasMissingData = empty($direccion) || empty($condiciones) || empty($fechaNacimi
                     </div>
                     
                     <div class="data-item">
+                        <span class="data-label">DNI:</span>
+                        <span class="data-value" id="dataDNI"><?= $dni ? sanitize($dni) : 'No registrado' ?></span>
+                    </div>
+                    
+                    <div class="data-item">
                         <span class="data-label">Teléfono:</span>
-                        <span class="data-value" id="dataPhone"><?= $telefono ?></span>
+                        <span class="data-value" id="dataPhone"><?= $telefono ? sanitize($telefono) : 'No registrado' ?></span>
                     </div>
                     
                     <div class="data-item">
@@ -276,6 +357,8 @@ $hasMissingData = empty($direccion) || empty($condiciones) || empty($fechaNacimi
             e.preventDefault();
 
             const formData = {
+                dni: document.getElementById('dniInput').value.trim(),
+                phone: document.getElementById('phoneInput').value.trim(),
                 address: document.getElementById('addressInput').value.trim(),
                 limitations: document.getElementById('limitationsInput').value.trim(),
                 birthDate: document.getElementById('birthDateInput').value
@@ -294,6 +377,14 @@ $hasMissingData = empty($direccion) || empty($condiciones) || empty($fechaNacimi
 
                 if (result.success) {
                     // Actualizar los datos en la vista
+                    if (formData.dni) {
+                        document.getElementById('dataDNI').textContent = formData.dni;
+                    }
+                    
+                    if (formData.phone) {
+                        document.getElementById('dataPhone').textContent = formData.phone;
+                    }
+                    
                     if (formData.address) {
                         document.getElementById('dataAddress').textContent = formData.address;
                     }
@@ -312,16 +403,29 @@ $hasMissingData = empty($direccion) || empty($condiciones) || empty($fechaNacimi
                             day: 'numeric' 
                         });
                         document.getElementById('dataAge').textContent = formattedDate;
+                        
+                        // Calcular y actualizar edad
+                        const today = new Date();
+                        let age = today.getFullYear() - date.getFullYear();
+                        const monthDiff = today.getMonth() - date.getMonth();
+                        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < date.getDate())) {
+                            age--;
+                        }
+                        document.getElementById('dataEdad').textContent = age + ' años';
                     }
 
                     closeForm();
                     
                     // Ocultar botón flotante si ya no hay datos faltantes
+                    const dni = document.getElementById('dataDNI').textContent;
+                    const phone = document.getElementById('dataPhone').textContent;
                     const address = document.getElementById('dataAddress').textContent;
                     const limitations = document.getElementById('dataLimitations').textContent;
                     const age = document.getElementById('dataAge').textContent;
                     
                     const stillHasMissing = 
+                        dni.includes('No registrado') ||
+                        phone.includes('No registrado') ||
                         address.includes('No hay') || 
                         limitations.includes('No hay') || 
                         age.includes('No hay');
@@ -372,7 +476,7 @@ $hasMissingData = empty($direccion) || empty($condiciones) || empty($fechaNacimi
                     html += '</div>';
                     historialContent.innerHTML = html;
                 } else {
-                    historialContent.innerHTML = '<div class="historial-empty"><p>No ha realizado todavía ninguna consulta</p></div>';
+                    historialContent.innerHTML = '<div class="historial-empty"><p>No se han encontrado todavía ninguna consulta finalizada.</p></div>';
                 }
             } catch (error) {
                 console.error('Error:', error);

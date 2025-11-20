@@ -56,7 +56,7 @@ $nombreCorto = explode(' ', $userName)[0] ?? 'Usuario';
                 </a>
             </li>
             <li>
-                <a href="perfil-usuario.php" aria-label="Ir a tu perfil de usuario" class="nav-button">
+                <a href="perfil.php" aria-label="Ir a tu perfil de usuario" class="nav-button">
                     <img src="media/icons/person_heart_24dp_000000_FILL0_wght500_GRAD0_opsz24.svg" alt="Icono de perfil" class="nav-icon">
                     <span class="nav-text">Perfil</span>
                 </a>

@@ -1,9 +1,87 @@
 <?php
 /**
- * Redirección de perfil.html a perfil-usuario.php
+ * Perfil - Menú de opciones
+ * Proyecto: PreConsulta - Centro de Triaje Digital
  */
+
+require_once 'config/database.php';
 require_once 'config/session_manager.php';
+require_once 'config/helpers.php';
 
+// Verificar autenticación
 requireAuth();
+checkSession();
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Centro de Triaje Digital</title>
+    <link rel="icon" type="image/svg+xml" href="media/icons/cardiology_24dp_007AFF_FILL1_wght300_GRAD-25_opsz24.svg">
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
 
-redirect('perfil-usuario.php');
+    <header class="secondary-header" role="banner">
+        <h1>Perfil</h1>
+    </header>
+
+    <main id="main-content" role="main" class="profile-main">
+        <ul class="menu-list">
+            <li class="menu-item-single">
+                <a href="perfil-usuario.php" class="menu-button" aria-label="Acceder a mi cuenta">
+                    <img src="media/icons/accessible_menu_24dp_000000_FILL1_wght300_GRAD-25_opsz24.svg" alt="Icono perfil" class="menu-icon" aria-hidden="true">
+                    <span class="menu-text">Mi cuenta</span>
+                </a>
+            </li>
+            
+            <li class="menu-group">
+                <a href="ayuda.html" class="menu-button" aria-label="Obtener ayuda">
+                    <img src="media/icons/help_24dp_000000_FILL0_wght300_GRAD-25_opsz24.svg" alt="Icono ayuda" class="menu-icon" aria-hidden="true">
+                    <span class="menu-text">Ayuda</span>
+                </a>
+                <a href="condiciones.html" class="menu-button" aria-label="Leer las condiciones generales">
+                    <img src="media/icons/description_24dp_000000_FILL0_wght300_GRAD-25_opsz24.svg" alt="Icono documento" class="menu-icon" aria-hidden="true">
+                    <span class="menu-text">Condiciones generales</span>
+                </a>
+                <a href="privacidad.html" class="menu-button" aria-label="Leer la política de privacidad">
+                    <img src="media/icons/lock_24dp_000000_FILL1_wght300_GRAD-25_opsz24.svg" alt="Icono privacidad" class="menu-icon" aria-hidden="true">
+                    <span class="menu-text">Política de privacidad</span>
+                </a>
+            </li>
+
+            <li class="menu-item-single">
+                <a href="logout.php" class="menu-button" aria-label="Salir">
+                    <img src="media/icons/logout_24dp_000000_FILL0_wght300_GRAD-25_opsz24.svg" alt="Icono salir" class="menu-icon" aria-hidden="true">
+                    <span class="menu-text">Salir</span>
+                </a>
+            </li>
+        </ul>
+    </main>
+
+    <nav class="bottom-nav" role="navigation" aria-label="Menú principal">
+        <ul>
+            <li>
+                <a href="index.php" aria-label="Ir a la página de inicio" class="nav-button">
+                    <img src="media/icons/home_24dp_000000_FILL0_wght400_GRAD0_opsz48.svg" alt="Icono de inicio" class="nav-icon">
+                    <span class="nav-text">Inicio</span>
+                </a>
+            </li>
+            <li>
+                <a href="perfil.php" aria-label="Ir a tu perfil de usuario" class="nav-button active">
+                    <img src="media/icons/person_heart_24dp_007AFF_FILL1_wght500_GRAD0_opsz24.svg" alt="Icono de perfil" class="nav-icon">
+                    <span class="nav-text">Perfil</span>
+                </a>
+            </li>
+            <li>
+                <a href="tel:112" aria-label="Llamar a emergencias" class="nav-button call-button">
+                    <img src="media/icons/phone_enable_emergency_red.svg" alt="Icono de teléfono" class="nav-icon">
+                    <span class="nav-text">Llamada emergencia</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</body>
+</html>

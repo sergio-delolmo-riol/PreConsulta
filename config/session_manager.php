@@ -7,6 +7,11 @@
  * Maneja la autenticación y autorización de usuarios
  */
 
+// Cargar configuración si no está cargada
+if (!defined('SESSION_LIFETIME')) {
+    require_once __DIR__ . '/database.php';
+}
+
 // Iniciar sesión si no está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

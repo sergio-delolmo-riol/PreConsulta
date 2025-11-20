@@ -23,6 +23,9 @@ CREATE TABLE Usuario (
     dni VARCHAR(20) UNIQUE,
     email VARCHAR(150) UNIQUE NOT NULL,
     telefono VARCHAR(20),
+    fecha_nacimiento DATE,
+    direccion VARCHAR(255),
+    condiciones_medicas TEXT,
     password VARCHAR(255) NOT NULL,
     fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
     ultimo_acceso DATETIME NULL,
@@ -38,13 +41,10 @@ CREATE TABLE Usuario (
 
 CREATE TABLE Paciente (
     id_paciente INT PRIMARY KEY,
-    fecha_nacimiento DATE,
-    direccion VARCHAR(255),
     seguro_medico VARCHAR(100),
     contacto_familiar VARCHAR(150),
     telefono_emergencia VARCHAR(20),
     alergias TEXT,
-    condiciones_medicas TEXT,
     grupo_sanguineo ENUM('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'),
     FOREIGN KEY (id_paciente) REFERENCES Usuario(id_usuario) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

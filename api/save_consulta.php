@@ -45,27 +45,10 @@ try {
         $episodioId = $db->insert('Episodio_Urgencia', [
             'id_paciente' => $userId,
             'fecha_llegada' => date('Y-m-d H:i:s'),
-            'sintomas' => $sintomas,
+            'motivo_consulta' => $sintomas,
             'estado' => 'espera_triaje',
-            'evidencias' => $evidencias ?: null
+            'notas_adicionales' => $evidencias ?: null
         ]);
-        
-        // Actualizar o crear historial clínico si es necesario
-        $historialExiste = $db->selectOne(
-            'Historial_Clinico',
-            ['id_historial'],
-            ['id_paciente' => $userId]
-        );
-        
-        if (!$historialExiste) {
-            // Crear historial clínico básico
-            $db->insert('Historial_Clinico', [
-                'id_paciente' => $userId,
-                'antecedentes' => null,
-                'medicacion_actual' => null,
-                'ultima_actualizacion' => date('Y-m-d H:i:s')
-            ]);
-        }
         
         // Confirmar transacción
         $db->commit();

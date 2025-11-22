@@ -7,6 +7,19 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 # Habilitar módulo de Apache para rewrite
 RUN a2enmod rewrite
 
+# Configurar php.conf para manejar archivos PHP correctamente
+RUN echo '<FilesMatch ".+\.ph(ar|p|tml)$">\n\
+    SetHandler application/x-httpd-php\n\
+</FilesMatch>\n\
+<FilesMatch ".+\.phps$">\n\
+    SetHandler application/x-httpd-php-source\n\
+    Require all denied\n\
+</FilesMatch>\n\
+<FilesMatch "^\.ph(ar|p|ps|tml)$">\n\
+    Require all denied\n\
+</FilesMatch>' > /etc/apache2/mods-available/php.conf \
+    && ln -sf /etc/apache2/mods-available/php.conf /etc/apache2/mods-enabled/php.conf
+
 # Configurar Apache para permitir .htaccess
 RUN echo '<Directory /var/www/html>\n\
     Options Indexes FollowSymLinks\n\

@@ -5,6 +5,11 @@
  * Valida usuarios contra la base de datos
  */
 
+// Headers anti-caché
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 require_once 'config/database.php';
 require_once 'config/session_manager.php';
 require_once 'config/helpers.php';

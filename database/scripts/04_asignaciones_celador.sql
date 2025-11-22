@@ -1,11 +1,13 @@
 -- Script para agregar asignaciones de consultas a celadores
 USE centro_triaje_digital;
 
--- Limpiar datos previos de prueba si existen
-DELETE FROM Asignacion_Celador WHERE id_celador = 6;
-DELETE FROM Episodio_Urgencia WHERE id_episodio > 10;
+-- Obtener el ID del celador José
+SET @celador_jose = (SELECT C.id_celador FROM Celador C JOIN Usuario U ON C.id_celador = U.id_usuario WHERE U.email = 'jose.celador@hospital.com');
 
--- Crear episodios de prueba
+-- Limpiar datos previos de prueba si existen
+DELETE FROM Asignacion_Celador WHERE id_celador = @celador_jose;
+
+-- Crear episodios de prueba adicionales
 INSERT INTO Episodio_Urgencia (id_paciente, fecha_llegada, motivo_consulta, estado, prioridad_actual)
 VALUES 
 (1, DATE_SUB(NOW(), INTERVAL 30 MINUTE), 'Dolor agudo en el pecho y dificultad para respirar, especialmente al realizar esfuerzos mínimos como caminar. Los síntomas comenzaron hace aproximadamente tres horas.', 'en_triaje', 2),
@@ -16,11 +18,11 @@ SET @ep1 = LAST_INSERT_ID();
 SET @ep2 = @ep1 + 1;
 SET @ep3 = @ep1 + 2;
 
--- Asignar al celador José (id_usuario=6 del seed_data.sql)
+-- Asignar al celador José
 INSERT INTO Asignacion_Celador (id_celador, id_episodio, fecha_asignacion, estado)
 VALUES 
-(6, @ep1, DATE_SUB(NOW(), INTERVAL 25 MINUTE), 'asignado'),
-(6, @ep2, DATE_SUB(NOW(), INTERVAL 55 MINUTE), 'asignado'),
-(6, @ep3, DATE_SUB(NOW(), INTERVAL 115 MINUTE), 'asignado');
+(@celador_jose, @ep1, DATE_SUB(NOW(), INTERVAL 25 MINUTE), 'pendiente'),
+(@celador_jose, @ep2, DATE_SUB(NOW(), INTERVAL 55 MINUTE), 'pendiente'),
+(@celador_jose, @ep3, DATE_SUB(NOW(), INTERVAL 115 MINUTE), 'pendiente');
 
 SELECT 'Asignaciones creadas correctamente' as resultado;

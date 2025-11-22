@@ -40,29 +40,29 @@ INSERT INTO Box (nombre, ubicacion, estado, capacidad, equipamiento) VALUES
 -- 3. USUARIOS BASE
 -- ============================================
 
--- Contraseña de todos los usuarios de prueba: "PreConsulta2024!" 
--- Hash generado con password_hash() en PHP: $2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi
+-- Contraseña de todos los usuarios de prueba (pacientes y celadores): "password123" 
+-- Hash generado con password_hash() en PHP: $2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y
 
 -- PACIENTES
 INSERT INTO Usuario (nombre, apellidos, dni, email, telefono, fecha_nacimiento, direccion, condiciones_medicas, password, estado) VALUES
-('Juan', 'Torres Mena', '12345678A', 'juan.torres@email.com', '698244712', '1985-03-15', 'Calle Mayor 45, 28013 Madrid', 'Alergia a la penicilina', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('María', 'García López', '23456789B', 'maria.garcia@email.com', '612345678', '1992-07-22', 'Avenida Libertad 12, 28004 Madrid', 'Asma leve', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Carlos', 'Rodríguez Sánchez', '34567890C', 'carlos.rodriguez@email.com', '623456789', '1978-11-08', 'Plaza España 3, 28008 Madrid', 'Hipertensión controlada', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Ana', 'Martínez Pérez', '45678901D', 'ana.martinez@email.com', '634567890', '1995-05-30', 'Calle Alcalá 89, 28009 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Pedro', 'López Fernández', '56789012E', 'pedro.lopez@email.com', '645678901', '1988-12-25', 'Gran Vía 25, 28013 Madrid', 'Diabetes tipo 2', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo');
+('Juan', 'Torres Mena', '12345678A', 'juan.torres@email.com', '698244712', '1985-03-15', 'Calle Mayor 45, 28013 Madrid', 'Alergia a la penicilina', '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo'),
+('María', 'García López', '23456789B', 'maria.garcia@email.com', '612345678', '1992-07-22', 'Avenida Libertad 12, 28004 Madrid', 'Asma leve', '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo'),
+('Carlos', 'Rodríguez Sánchez', '34567890C', 'carlos.rodriguez@email.com', '623456789', '1978-11-08', 'Plaza España 3, 28008 Madrid', 'Hipertensión controlada', '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo'),
+('Ana', 'Martínez Pérez', '45678901D', 'ana.martinez@email.com', '634567890', '1995-05-30', 'Calle Alcalá 89, 28009 Madrid', NULL, '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo'),
+('Pedro', 'López Fernández', '56789012E', 'pedro.lopez@email.com', '645678901', '1988-12-25', 'Gran Vía 25, 28013 Madrid', 'Diabetes tipo 2', '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo');
 
 -- ENFERMEROS/MÉDICOS
 INSERT INTO Usuario (nombre, apellidos, dni, email, telefono, fecha_nacimiento, direccion, condiciones_medicas, password, estado) VALUES
-('Laura', 'Sánchez Ruiz', '67890123F', 'laura.sanchez@hospital.com', '656789012', '1987-09-14', 'Calle Serrano 78, 28006 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Miguel', 'Fernández Castro', '78901234G', 'miguel.fernandez@hospital.com', '667890123', '1982-04-18', 'Paseo de la Castellana 150, 28046 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Carmen', 'Jiménez Moreno', '89012345H', 'carmen.jimenez@hospital.com', '678901234', '1990-01-25', 'Calle Goya 32, 28001 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('David', 'Romero Ortiz', '90123456I', 'david.romero@hospital.com', '689012345', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo');
+('Laura', 'Sánchez Ruiz', '67890123F', 'laura.sanchez@hospital.com', '656789012', '1987-09-14', 'Calle Serrano 78, 28006 Madrid', NULL, '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo'),
+('Miguel', 'Fernández Castro', '78901234G', 'miguel.fernandez@hospital.com', '667890123', '1982-04-18', 'Paseo de la Castellana 150, 28046 Madrid', NULL, '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo'),
+('Carmen', 'Jiménez Moreno', '89012345H', 'carmen.jimenez@hospital.com', '678901234', '1990-01-25', 'Calle Goya 32, 28001 Madrid', NULL, '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo'),
+('David', 'Romero Ortiz', '90123456I', 'david.romero@hospital.com', '689012345', '1986-03-12', 'Calle Velázquez 55, 28001 Madrid', NULL, '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo');
 
 -- CELADORES
 INSERT INTO Usuario (nombre, apellidos, dni, email, telefono, fecha_nacimiento, direccion, condiciones_medicas, password, estado) VALUES
-('Antonio', 'Navarro Gil', '01234567J', 'antonio.navarro@hospital.com', '690123456', '1975-06-10', 'Calle Bravo Murillo 200, 28020 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Rosa', 'Vázquez Blanco', '12345670K', 'rosa.vazquez@hospital.com', '601234567', '1993-08-05', 'Calle Arturo Soria 120, 28043 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Francisco', 'Molina Santos', '23456701L', 'francisco.molina@hospital.com', '612345670', '1989-02-28', 'Calle Orense 68, 28020 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo');
+('Antonio', 'Navarro Gil', '01234567J', 'antonio.navarro@hospital.com', '690123456', '1975-06-10', 'Calle Bravo Murillo 200, 28020 Madrid', NULL, '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo'),
+('Rosa', 'Vázquez Blanco', '12345670K', 'rosa.vazquez@hospital.com', '601234567', '1993-08-05', 'Calle Arturo Soria 120, 28043 Madrid', NULL, '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo'),
+('Francisco', 'Molina Santos', '23456701L', 'francisco.molina@hospital.com', '612345670', '1989-02-28', 'Calle Orense 68, 28020 Madrid', NULL, '$2y$10$Y0UutTMxHwMddhR67LtSjO6HNvm5EIm5EpJkDcaqzUyNMkuVXmW5y', 'activo');
 
 -- ============================================
 -- 4. DATOS ESPECÍFICOS DE PACIENTES

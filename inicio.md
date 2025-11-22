@@ -347,14 +347,34 @@ docker-compose up -d
 
 ### ❌ Error: "port is already allocated" o "puerto ya en uso"
 
-**Problema:** El puerto 8090, 3307 o 8091 está siendo usado por otra aplicación (probablemente XAMPP, WAMP o MAMP).
+**Problema:** El puerto 8090, 3307 o 8091 está siendo usado por otra aplicación (probablemente XAMPP, WAMP, MAMP, o contenedores Docker previos).
 
-**Solución Opción 1 - Detener XAMPP/WAMP:**
+**Solución Opción 1 - Cerrar contenedores Docker anteriores:**
+
+Si tienes contenedores de PreConsulta corriendo de antes:
+```powershell
+# Cerrar y eliminar contenedores de este proyecto
+docker-compose down
+```
+
+Si tienes otros contenedores Docker usando los puertos:
+```powershell
+# Ver TODOS los contenedores corriendo
+docker ps
+
+# Detener todos los contenedores
+docker stop $(docker ps -aq)
+
+# O detener un contenedor específico
+docker stop NOMBRE_O_ID_DEL_CONTENEDOR
+```
+
+**Solución Opción 2 - Detener XAMPP/WAMP:**
 1. Cierra completamente XAMPP Control Panel o WAMP
 2. Detén Apache y MySQL desde esas aplicaciones
 3. Vuelve a ejecutar `docker-compose up -d`
 
-**Solución Opción 2 - Cambiar el puerto de PreConsulta:**
+**Solución Opción 3 - Cambiar el puerto de PreConsulta:**
 1. Abre el archivo `docker-compose.yml` con el Bloc de notas
 2. Busca la línea que dice: `"8090:80"`
 3. Cámbiala a: `"8095:80"` (o cualquier otro puerto libre)
@@ -366,11 +386,41 @@ docker-compose up -d
    ```
 6. Ahora abre: `http://localhost:8095`
 
-**Solución Opción 3 - Verificar qué usa el puerto:**
+**Solución Opción 4 - Identificar y cerrar el proceso que usa el puerto:**
+
 ```powershell
+# Ver qué está usando el puerto 8090
 netstat -ano | findstr :8090
+
+# Ver qué está usando el puerto 3307
+netstat -ano | findstr :3307
+
+# Ver qué está usando el puerto 8091
+netstat -ano | findstr :8091
 ```
-Esto te dirá qué aplicación está usando el puerto.
+
+Esto te mostrará el PID (Process ID) del proceso. Para cerrarlo:
+
+```powershell
+# Reemplaza PID con el número que viste
+Stop-Process -Id PID -Force
+
+# Ejemplo: Stop-Process -Id 12345 -Force
+```
+
+**⚡ Comando rápido para limpiar todo y empezar de cero:**
+
+```powershell
+# 1. Cerrar todos los contenedores de Docker
+docker stop $(docker ps -aq)
+
+# 2. Eliminar contenedores de PreConsulta
+cd "C:\ruta\a\tu\PreConsulta"
+docker-compose down
+
+# 3. Levantar de nuevo
+docker-compose up -d
+```
 
 ---
 

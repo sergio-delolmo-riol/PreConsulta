@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // DEBUG: Contraseña correcta
                     if (APP_DEBUG) {
                         error_log('DEBUG LOGIN: Contraseña verificada correctamente');
+                        error_log('DEBUG LOGIN: ID Usuario: ' . $user['id_usuario']);
                     }
                     // Determinar el tipo de usuario
                     $userType = 'paciente'; // Por defecto
@@ -62,15 +63,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Verificar si es enfermero
                     $sqlEnfermero = "SELECT id_enfermero FROM Enfermero WHERE id_enfermero = :id LIMIT 1";
                     $enfermero = $db->selectOne($sqlEnfermero, ['id' => $user['id_usuario']]);
+                    
+                    if (APP_DEBUG) {
+                        error_log('DEBUG LOGIN: Enfermero query result: ' . print_r($enfermero, true));
+                    }
+                    
                     if ($enfermero) {
                         $userType = 'enfermero';
+                        if (APP_DEBUG) {
+                            error_log('DEBUG LOGIN: Usuario es ENFERMERO');
+                        }
                     } else {
                         // Verificar si es celador
                         $sqlCelador = "SELECT id_celador FROM Celador WHERE id_celador = :id LIMIT 1";
                         $celador = $db->selectOne($sqlCelador, ['id' => $user['id_usuario']]);
+                        
+                        if (APP_DEBUG) {
+                            error_log('DEBUG LOGIN: Celador query result: ' . print_r($celador, true));
+                        }
+                        
                         if ($celador) {
                             $userType = 'celador';
+                            if (APP_DEBUG) {
+                                error_log('DEBUG LOGIN: Usuario es CELADOR');
+                            }
+                        } else {
+                            if (APP_DEBUG) {
+                                error_log('DEBUG LOGIN: Usuario es PACIENTE (default)');
+                            }
                         }
+                    }
+                    
+                    if (APP_DEBUG) {
+                        error_log('DEBUG LOGIN: Tipo de usuario final: ' . $userType);
                     }
                     
                     // Actualizar último acceso
@@ -87,8 +112,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Redirigir según el tipo de usuario
                     if ($userType === 'paciente') {
                         redirect('index.php');
+                    } else if ($userType === 'celador') {
+                        redirect('celador-dashboard.php');
+                    } else if ($userType === 'enfermero') {
+                        redirect('enfermero-dashboard.php');
                     } else {
-                        // Para enfermeros y celadores, redirigir a una página específica (puedes cambiar esto)
                         redirect('index.php');
                     }
                 } else {

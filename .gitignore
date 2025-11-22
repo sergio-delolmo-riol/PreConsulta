@@ -65,3 +65,12 @@ dist/
 test_*.php
 debug.php
 _test.php
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+*.pid
+*.sock
+
+# Volúmenes de Docker (si se crean localmente)
+mysql_data/

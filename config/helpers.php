@@ -143,11 +143,11 @@ function redirect($url) {
  */
 function jsonError($message, $code = 400) {
     http_response_code($code);
-    header('Content-Type: application/json');
+    header('Content-Type: application/json; charset=utf-8');
     echo json_encode([
         'success' => false,
         'error' => $message
-    ]);
+    ], JSON_UNESCAPED_UNICODE);
     exit();
 }
 
@@ -157,7 +157,7 @@ function jsonError($message, $code = 400) {
  * @param string $message Mensaje opcional
  */
 function jsonSuccess($data = null, $message = null) {
-    header('Content-Type: application/json');
+    header('Content-Type: application/json; charset=utf-8');
     $response = ['success' => true];
     
     if ($message) {
@@ -168,7 +168,7 @@ function jsonSuccess($data = null, $message = null) {
         $response['data'] = $data;
     }
     
-    echo json_encode($response);
+    echo json_encode($response, JSON_UNESCAPED_UNICODE);
     exit();
 }
 

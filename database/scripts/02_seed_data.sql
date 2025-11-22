@@ -2,6 +2,13 @@
 --   DATOS DE PRUEBA - CENTRO DE TRIAJE DIGITAL
 --   Proyecto: PreConsulta
 --   Fecha: 18/11/2025
+--   Última actualización: 20/11/2025
+-- 
+--   CAMBIOS RECIENTES:
+--   - Los campos fecha_nacimiento, direccion y condiciones_medicas
+--     ahora están en la tabla Usuario (migrados desde Paciente)
+--   - Todos los usuarios de prueba incluyen estos datos completos
+--   - La tabla Paciente solo contiene datos médicos específicos
 -- ============================================
 
 USE centro_triaje_digital;
@@ -37,36 +44,37 @@ INSERT INTO Box (nombre, ubicacion, estado, capacidad, equipamiento) VALUES
 -- Hash generado con password_hash() en PHP: $2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi
 
 -- PACIENTES
-INSERT INTO Usuario (nombre, apellidos, dni, email, telefono, password, estado) VALUES
-('Juan', 'Torres Mena', '12345678A', 'juan.torres@email.com', '698244712', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('María', 'García López', '23456789B', 'maria.garcia@email.com', '612345678', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Carlos', 'Rodríguez Sánchez', '34567890C', 'carlos.rodriguez@email.com', '623456789', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Ana', 'Martínez Pérez', '45678901D', 'ana.martinez@email.com', '634567890', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Pedro', 'López Fernández', '56789012E', 'pedro.lopez@email.com', '645678901', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo');
+INSERT INTO Usuario (nombre, apellidos, dni, email, telefono, fecha_nacimiento, direccion, condiciones_medicas, password, estado) VALUES
+('Juan', 'Torres Mena', '12345678A', 'juan.torres@email.com', '698244712', '1985-03-15', 'Calle Mayor 45, 28013 Madrid', 'Alergia a la penicilina', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
+('María', 'García López', '23456789B', 'maria.garcia@email.com', '612345678', '1992-07-22', 'Avenida Libertad 12, 28004 Madrid', 'Asma leve', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
+('Carlos', 'Rodríguez Sánchez', '34567890C', 'carlos.rodriguez@email.com', '623456789', '1978-11-08', 'Plaza España 3, 28008 Madrid', 'Hipertensión controlada', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
+('Ana', 'Martínez Pérez', '45678901D', 'ana.martinez@email.com', '634567890', '1995-05-30', 'Calle Alcalá 89, 28009 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
+('Pedro', 'López Fernández', '56789012E', 'pedro.lopez@email.com', '645678901', '1988-12-25', 'Gran Vía 25, 28013 Madrid', 'Diabetes tipo 2', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo');
 
 -- ENFERMEROS/MÉDICOS
-INSERT INTO Usuario (nombre, apellidos, dni, email, telefono, password, estado) VALUES
-('Laura', 'Sánchez Ruiz', '67890123F', 'laura.sanchez@hospital.com', '656789012', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Miguel', 'Fernández Castro', '78901234G', 'miguel.fernandez@hospital.com', '667890123', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Carmen', 'Jiménez Moreno', '89012345H', 'carmen.jimenez@hospital.com', '678901234', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
+INSERT INTO Usuario (nombre, apellidos, dni, email, telefono, fecha_nacimiento, direccion, condiciones_medicas, password, estado) VALUES
+('Laura', 'Sánchez Ruiz', '67890123F', 'laura.sanchez@hospital.com', '656789012', '1987-09-14', 'Calle Serrano 78, 28006 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
+('Miguel', 'Fernández Castro', '78901234G', 'miguel.fernandez@hospital.com', '667890123', '1982-04-18', 'Paseo de la Castellana 150, 28046 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
+('Carmen', 'Jiménez Moreno', '89012345H', 'carmen.jimenez@hospital.com', '678901234', '1990-01-25', 'Calle Goya 32, 28001 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
 ('David', 'Romero Ortiz', '90123456I', 'david.romero@hospital.com', '689012345', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo');
 
 -- CELADORES
-INSERT INTO Usuario (nombre, apellidos, dni, email, telefono, password, estado) VALUES
-('Antonio', 'Navarro Gil', '01234567J', 'antonio.navarro@hospital.com', '690123456', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Rosa', 'Vázquez Blanco', '12345670K', 'rosa.vazquez@hospital.com', '601234567', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
-('Francisco', 'Molina Santos', '23456701L', 'francisco.molina@hospital.com', '612345670', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo');
+INSERT INTO Usuario (nombre, apellidos, dni, email, telefono, fecha_nacimiento, direccion, condiciones_medicas, password, estado) VALUES
+('Antonio', 'Navarro Gil', '01234567J', 'antonio.navarro@hospital.com', '690123456', '1975-06-10', 'Calle Bravo Murillo 200, 28020 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
+('Rosa', 'Vázquez Blanco', '12345670K', 'rosa.vazquez@hospital.com', '601234567', '1993-08-05', 'Calle Arturo Soria 120, 28043 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo'),
+('Francisco', 'Molina Santos', '23456701L', 'francisco.molina@hospital.com', '612345670', '1989-02-28', 'Calle Orense 68, 28020 Madrid', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'activo');
 
 -- ============================================
 -- 4. DATOS ESPECÍFICOS DE PACIENTES
 -- ============================================
+-- Nota: fecha_nacimiento, direccion y condiciones_medicas ahora están en la tabla Usuario
 
-INSERT INTO Paciente (id_paciente, fecha_nacimiento, direccion, seguro_medico, contacto_familiar, telefono_emergencia, alergias, condiciones_medicas, grupo_sanguineo) VALUES
-(1, '1985-03-15', 'Calle Principal 123, Madrid', 'Seguro Nacional', 'María Torres (Esposa)', '698244713', 'Penicilina', 'Hipertensión', 'O+'),
-(2, '1990-07-22', 'Avenida Central 45, Madrid', 'Sanitas', 'Pedro García (Hermano)', '612345679', NULL, NULL, 'A+'),
-(3, '1978-11-08', 'Plaza Mayor 12, Madrid', 'Adeslas', 'Laura Rodríguez (Esposa)', '623456788', 'Polen', 'Diabetes tipo 2', 'B+'),
-(4, '1995-02-28', 'Calle Luna 67, Madrid', 'Seguro Nacional', 'José Martínez (Padre)', '634567891', NULL, 'Asma', 'AB+'),
-(5, '1982-09-14', 'Avenida Sol 89, Madrid', 'DKV', 'Carmen López (Esposa)', '645678902', 'Lactosa', NULL, 'O-');
+INSERT INTO Paciente (id_paciente, seguro_medico, contacto_familiar, telefono_emergencia, alergias, grupo_sanguineo) VALUES
+(1, 'Seguro Nacional', 'María Torres (Esposa)', '698244713', 'Penicilina', 'O+'),
+(2, 'Sanitas', 'Pedro García (Hermano)', '612345679', NULL, 'A+'),
+(3, 'Adeslas', 'Laura Rodríguez (Esposa)', '623456788', 'Polen', 'B+'),
+(4, 'Seguro Nacional', 'José Martínez (Padre)', '634567891', NULL, 'AB+'),
+(5, 'DKV', 'Carmen López (Esposa)', '645678902', 'Lactosa', 'O-');
 
 -- ============================================
 -- 5. DATOS DE ENFERMEROS

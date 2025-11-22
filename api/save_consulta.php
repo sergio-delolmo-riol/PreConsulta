@@ -50,12 +50,44 @@ try {
             'notas_adicionales' => $evidencias ?: null
         ]);
         
+        // Buscar celador disponible y asignar automáticamente
+        $sqlCelador = "
+            SELECT c.id_celador, u.nombre, u.apellidos, b.nombre as box_nombre
+            FROM Celador c
+            INNER JOIN Usuario u ON c.id_celador = u.id_usuario
+            LEFT JOIN Box b ON c.id_box = b.id_box
+            WHERE c.disponible = 'si' 
+            AND c.id_box IS NOT NULL
+            AND u.estado = 'activo'
+            ORDER BY c.id_celador ASC
+            LIMIT 1
+        ";
+        
+        $celadorDisponible = $db->selectOne($sqlCelador);
+        
+        $mensajeAsignacion = '';
+        
+        if ($celadorDisponible) {
+            // Asignar al celador disponible
+            $db->insert('Asignacion_Celador', [
+                'id_episodio' => $episodioId,
+                'id_celador' => $celadorDisponible['id_celador'],
+                'fecha_asignacion' => date('Y-m-d H:i:s'),
+                'estado' => 'pendiente'
+            ]);
+            
+            $mensajeAsignacion = ' Has sido asignado a ' . $celadorDisponible['nombre'] . ' ' . $celadorDisponible['apellidos'] . ' en ' . $celadorDisponible['box_nombre'] . '.';
+        } else {
+            $mensajeAsignacion = ' En estos momentos no hay celadores disponibles. Serás asignado en breve.';
+        }
+        
         // Confirmar transacción
         $db->commit();
         
         jsonSuccess([
             'episodio_id' => $episodioId,
-            'mensaje' => 'Consulta registrada exitosamente'
+            'celador_asignado' => $celadorDisponible ? true : false,
+            'mensaje' => 'Consulta registrada exitosamente.' . $mensajeAsignacion
         ]);
         
     } catch (Exception $e) {

@@ -11,11 +11,11 @@ require_once 'config/helpers.php';
 requireAuth();
 checkSession();
 
-// En una implementación real, aquí obtendríamos datos reales de la base de datos
-// Por ahora usamos valores de ejemplo
-$urgencia = "MEDIO";
-$tiempoEspera = "8 minutos";
-$pacientesDelante = "3";
+// Valores por defecto mientras se carga la información
+$urgencia = "CARGANDO...";
+$tiempoEspera = "Calculando...";
+$pacientesDelante = "-";
+$celadorInfo = null;
 
 ?>
 <!DOCTYPE html>
@@ -61,7 +61,21 @@ $pacientesDelante = "3";
         <div class="info-section">
             <h3 class="info-label">Número de pacientes delante suya:</h3>
             <div class="info-box patients-box">
-                <span class="info-value"><?= sanitize($pacientesDelante) ?></span>
+                <span class="info-value" id="pacientes-delante"><?= sanitize($pacientesDelante) ?></span>
+            </div>
+        </div>
+
+        <div class="info-section" id="celador-section" style="display: none;">
+            <h3 class="info-label">Celador asignado:</h3>
+            <div class="info-box celador-box">
+                <span class="info-value" id="celador-nombre">-</span>
+            </div>
+        </div>
+
+        <div class="info-section" id="box-section" style="display: none;">
+            <h3 class="info-label">Box asignado:</h3>
+            <div class="info-box box-box">
+                <span class="info-value" id="box-nombre">-</span>
             </div>
         </div>
     </main>
@@ -77,6 +91,51 @@ $pacientesDelante = "3";
 
     <script>
         const confirmButton = document.getElementById('confirmButton');
+
+        // Cargar información de la consulta al cargar la página
+        async function cargarEstadoConsulta() {
+            try {
+                // Timeout de 5 segundos
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                
+                const response = await fetch('api/get_estado_consulta.php', {
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                
+                const result = await response.json();
+
+                if (result.success && result.consulta) {
+                    const consulta = result.consulta;
+                    
+                    // Actualizar información
+                    document.querySelector('.info-value').textContent = consulta.urgencia;
+                    document.getElementById('pacientes-delante').textContent = consulta.pacientes_delante;
+                    document.querySelectorAll('.info-value')[1].textContent = consulta.tiempo_espera;
+                    
+                    // Si hay celador asignado, mostrar información
+                    if (consulta.celador_asignado && consulta.celador) {
+                        document.getElementById('celador-nombre').textContent = consulta.celador.nombre;
+                        document.getElementById('box-nombre').textContent = consulta.celador.box;
+                        document.getElementById('celador-section').style.display = 'block';
+                        document.getElementById('box-section').style.display = 'block';
+                    }
+                }
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    console.log('Timeout al cargar estado');
+                    // Mostrar valores por defecto
+                    document.querySelector('.info-value').textContent = 'MEDIA';
+                    document.querySelectorAll('.info-value')[1].textContent = '5 minutos';
+                } else {
+                    console.error('Error al cargar estado:', error);
+                }
+            }
+        }
+
+        // Cargar estado al iniciar
+        cargarEstadoConsulta();
 
         confirmButton.addEventListener('click', async function () {
             // Obtener los datos de la consulta del sessionStorage
@@ -116,12 +175,22 @@ $pacientesDelante = "3";
 
                     // Actualizar el botón
                     this.classList.add('confirmed');
-                    this.textContent = 'Asistencia confirmada';
+                    this.textContent = 'Consulta guardada ✓';
                     
-                    // Redirigir después de 2 segundos
+                    // Mostrar mensaje si hay celador asignado
+                    if (result.celador_asignado) {
+                        alert(result.mensaje);
+                    }
+                    
+                    // Recargar estado de la consulta
+                    await cargarEstadoConsulta();
+                    
+                    // Cambiar texto del botón
                     setTimeout(() => {
-                        window.location.href = 'index.php';
-                    }, 2000);
+                        this.textContent = 'Ir al inicio';
+                        this.disabled = false;
+                        this.onclick = () => window.location.href = 'index.php';
+                    }, 1500);
                 } else {
                     alert('Error al guardar la consulta: ' + result.error);
                     this.disabled = false;

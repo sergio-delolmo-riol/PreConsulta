@@ -7,6 +7,11 @@
  * Maneja la autenticación y autorización de usuarios
  */
 
+// Establecer encoding UTF-8
+header('Content-Type: text/html; charset=UTF-8');
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
+
 // Cargar configuración si no está cargada
 if (!defined('SESSION_LIFETIME')) {
     require_once __DIR__ . '/database.php';

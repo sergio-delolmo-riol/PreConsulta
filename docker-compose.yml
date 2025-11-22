@@ -1,0 +1,73 @@
+services:
+  # Servicio MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: preconsulta_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_2024
+      MYSQL_DATABASE: centro_triaje_digital
+      MYSQL_USER: preconsulta_user
+      MYSQL_PASSWORD: preconsulta_pass_2024
+    ports:
+      - "3307:3306"  # Puerto 3307 en host para no conflicto con XAMPP
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/scripts:/docker-entrypoint-initdb.d:ro
+    networks:
+      - preconsulta_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot_password_2024"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio PHP con Apache
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: preconsulta_web
+    restart: unless-stopped
+    ports:
+      - "8090:80"  # Acceso en http://localhost:8090
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - preconsulta_network
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: centro_triaje_digital
+      DB_USER: preconsulta_user
+      DB_PASS: preconsulta_pass_2024
+      APP_ENV: development
+
+  # PhpMyAdmin (opcional, para administrar la BD)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: preconsulta_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8091:80"  # Acceso en http://localhost:8091
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root_password_2024
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - preconsulta_network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  preconsulta_network:
+    driver: bridge

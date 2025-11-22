@@ -60,13 +60,11 @@ try {
         <!-- Sidebar -->
         <aside class="sidebar" role="navigation" aria-label="Menú principal">
             <div class="sidebar-header">
-                <div class="logo">
+            <div class="logo">
                     <span class="logo-icon">🏥</span>
-                    <span class="logo-text">MediConsult</span>
+                    <span class="logo-text">PreConsulta</span>
                 </div>
-            </div>
-            
-            <div class="user-profile">
+        </div>            <div class="user-profile">
                 <img src="media/icons/person_heart_24dp_007AFF_FILL1_wght500_GRAD0_opsz24.svg" alt="Avatar" class="user-avatar">
                 <div class="user-info">
                     <p class="user-name"><?= sanitize($userName) ?></p>

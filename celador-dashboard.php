@@ -89,7 +89,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediConsult - Dashboard Celador</title>
+    <title>PreConsulta - Dashboard Celador</title>
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/celador-dashboard.css">
 </head>
@@ -99,8 +99,8 @@ try {
     <aside class="sidebar" role="navigation" aria-label="Menú principal">
         <div class="sidebar-header">
             <div class="logo">
-                <span class="logo-icon">📋</span>
-                <span class="logo-text">MediConsult</span>
+                <span class="logo-icon">🏥</span>
+                <span class="logo-text">PreConsulta</span>
             </div>
         </div>
 

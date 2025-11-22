@@ -66,7 +66,7 @@ try {
             <div class="sidebar-header">
                 <div class="logo">
                     <span class="logo-icon">📋</span>
-                    <span class="logo-text">MediConsult</span>
+                    <span class="logo-text">PreConsulta</span>
                 </div>
             </div>
             

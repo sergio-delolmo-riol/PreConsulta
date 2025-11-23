@@ -94,6 +94,7 @@ try {
     <link rel="stylesheet" href="CSS/celador-dashboard.css">
 </head>
 <body class="dashboard-body">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
     <!-- Sidebar -->
     <aside class="sidebar" role="navigation" aria-label="Menú principal">
@@ -142,7 +143,7 @@ try {
         </nav>
 
         <div class="sidebar-footer">
-            <button id="toggle-disponibilidad" class="btn-disponibilidad <?= $celadorInfo['disponible'] === 'si' ? 'activo' : '' ?>" title="Cambiar disponibilidad">
+            <button id="toggle-disponibilidad" class="btn-disponibilidad <?= $celadorInfo['disponible'] === 'si' ? 'activo' : '' ?>" title="Cambiar disponibilidad" aria-pressed="<?= $celadorInfo['disponible'] === 'si' ? 'true' : 'false' ?>" aria-label="Cambiar disponibilidad de trabajo">
                 <img src="media/icons/toggle_on_24dp_FILL0_wght300_GRAD0_opsz24.svg" alt="" class="nav-icon" aria-hidden="true">
                 <span id="disponibilidad-text"><?= $celadorInfo['disponible'] === 'si' ? 'Disponible' : 'No Disponible' ?></span>
             </button>
@@ -181,7 +182,7 @@ try {
             </div>
 
             <div class="top-bar-actions">
-                <button class="icon-button" id="btnNotificaciones" aria-label="Notificaciones">
+                <button class="icon-button" id="btnNotificaciones" aria-label="Notificaciones" aria-haspopup="dialog" aria-expanded="false">
                     <img src="media/icons/notifications_24dp_FILL0_wght300_GRAD0_opsz24.svg" alt="Notificaciones">
                     <span class="badge" id="notificaciones-badge" style="display: none;">0</span>
                 </button>
@@ -191,10 +192,10 @@ try {
             </div>
             
             <!-- Panel de Notificaciones -->
-            <div class="notificaciones-panel" id="notificacionesPanel">
+            <div class="notificaciones-panel" id="notificacionesPanel" role="dialog" aria-labelledby="notificaciones-titulo" aria-hidden="true">
                 <div class="notificaciones-header">
-                    <h3>Notificaciones</h3>
-                    <button class="btn-cerrar-notif" id="btnCerrarNotif">&times;</button>
+                    <h3 id="notificaciones-titulo">Notificaciones</h3>
+                    <button class="btn-cerrar-notif" id="btnCerrarNotif" aria-label="Cerrar panel de notificaciones">&times;</button>
                 </div>
                 <div class="notificaciones-content" id="notificacionesContent">
                     <div class="loading">Cargando notificaciones...</div>
@@ -205,7 +206,7 @@ try {
         <!-- Content Area -->
         <div class="content-wrapper">
             <!-- Left Panel - Consultas List -->
-            <main class="consultas-panel" role="main">
+            <main class="consultas-panel" role="main" id="main-content">
                 <div class="panel-header">
                     <div class="header-top">
                         <h1>Consultas</h1>
@@ -213,19 +214,19 @@ try {
                     </div>
                 </div>
 
-                <div class="filters-tabs" role="tablist">
-                    <button role="tab" aria-selected="true" class="tab-button active" data-filter="todas">
+                <div class="filters-tabs" role="tablist" aria-label="Filtros de consultas">
+                    <button role="tab" aria-selected="true" aria-controls="consultas-list" class="tab-button active" data-filter="todas">
                         Todas
                     </button>
-                    <button role="tab" aria-selected="false" class="tab-button" data-filter="pendientes">
+                    <button role="tab" aria-selected="false" aria-controls="consultas-list" class="tab-button" data-filter="pendientes">
                         Pendientes
                     </button>
-                    <button role="tab" aria-selected="false" class="tab-button" data-filter="autorizadas">
+                    <button role="tab" aria-selected="false" aria-controls="consultas-list" class="tab-button" data-filter="autorizadas">
                         Autorizadas
                     </button>
                 </div>
 
-                <div class="consultas-list">
+                <div class="consultas-list" id="consultas-list" role="region" aria-label="Lista de consultas" aria-live="polite">
                     <?php if (empty($consultas)): ?>
                         <div class="empty-state">
                             <img src="media/icons/inbox_24dp_FILL0_wght300_GRAD0_opsz24.svg" alt="" class="empty-icon">
@@ -253,6 +254,9 @@ try {
                                 }
                             ?>
                             <div class="consulta-card" 
+                                 role="article"
+                                 tabindex="0"
+                                 aria-label="Consulta de <?= sanitize($consulta['nombre'] . ' ' . $consulta['apellidos']) ?>"
                                  data-episodio="<?= $consulta['id_episodio'] ?>"
                                  data-estado="<?= strtolower($estadoLabel) ?>"
                                  data-dni="<?= sanitize($consulta['dni']) ?>">
@@ -287,6 +291,7 @@ try {
         </div>
     </div>
 
+    <script src="js/accessible-notifications.js"></script>
     <script src="js/celador-dashboard.js"></script>
 </body>
 </html>

@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 // Si no hay síntomas, prevenir navegación y mostrar alerta
                 e.preventDefault();
-                alert('Por favor, describa sus síntomas antes de continuar.');
+                showNotification('Por favor, describa sus síntomas antes de continuar.', 'warning', 5000);
             }
         });
     }

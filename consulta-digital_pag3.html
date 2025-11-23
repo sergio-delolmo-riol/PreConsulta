@@ -9,6 +9,7 @@
 </head>
 
 <body class="full-height-body">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
     <header class="consult-header" role="banner">
         <div class="header-content">
@@ -22,7 +23,7 @@
         </div>
     </header>
 
-    <main class="consult-main approved-main" role="main">
+    <main class="consult-main approved-main" role="main" id="main-content">
         <hr class="status-divider">
         <div class="info-section">
             <h3 class="info-label">Grado urgencia:</h3>
@@ -51,7 +52,7 @@
             <img src="media/icons/arrow_back_24dp_000000_FILL1_wght300_GRAD-25_opsz24.svg" alt="Flecha volver" class="back-arrow-icon">
         </a> -->
         <button id="confirmButton" class="confirm-attendance-button"
-            aria-label="Confirmar asistencia al hospital">Confirmar asistencia</button>
+            aria-label="Confirmar asistencia al hospital" aria-pressed="false">Confirmar asistencia</button>
         <div class="step-counter" aria-label="Paso 3 de 3">
             <span class="counter-number">3/3</span>
             <span class="counter-text">pasos</span>
@@ -65,6 +66,7 @@
             this.classList.add('confirmed');
             this.textContent = 'Asistencia confirmada';
             this.disabled = true;
+            this.setAttribute('aria-pressed', 'true');
         });
     </script>
 

@@ -10,8 +10,9 @@
 </head>
 
 <body class="login-body">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-    <header class="login-header">
+    <header class="login-header" role="banner">
         <h1 class="register-title">
             <span class="register-main-text">Registro</span>
             <span class="register-subtitle">Centro de Triaje Digital</span>
@@ -21,11 +22,11 @@
         </div>
     </header>
 
-    <main class="login-main">
+    <main class="login-main" role="main" id="main-content">
         <hr class="register-divider">
-        <form id="registerForm" class="login-form" novalidate>
+        <form id="registerForm" class="login-form" novalidate role="form" aria-labelledby="form-title">
             <div class="form-fields-container">
-                <h2 class="form-title">Datos personales</h2>
+                <h2 class="form-title" id="form-title">Datos personales</h2>
 
                 <div class="form-field">
                     <label for="nombre">Nombre</label>
@@ -61,6 +62,7 @@
                         aria-describedby="error-password" autocomplete="new-password" aria-invalid="false">
                     <div class="error" id="error-password" aria-live="polite"></div>
                 </div>
+                </fieldset>
             </div>
 
             <div class="form-buttons-container">

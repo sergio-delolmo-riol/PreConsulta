@@ -233,6 +233,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'session_expired') {
         </form>
     </main>
 
+    <script src="js/accessible-notifications.js"></script>
     <script>
         // Toggle para mostrar/ocultar contraseña
         const togglePassword = document.getElementById('togglePassword');
@@ -324,7 +325,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'session_expired') {
 
         // Botón de contraseña olvidada
         document.querySelector('.forgot-password-button').addEventListener('click', function () {
-            alert('Funcionalidad de recuperación de contraseña en desarrollo');
+            showNotification('Funcionalidad de recuperación de contraseña en desarrollo', 'info');
         });
     </script>
 

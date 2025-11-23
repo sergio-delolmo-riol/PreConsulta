@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
     <header class="secondary-header" role="banner">
         <h1>Perfil</h1>
     </header>
 
     <main id="main-content" role="main" class="profile-main">
+        <nav aria-label="Opciones de perfil">
         <ul class="menu-list">
             <li class="menu-item-single">
                 <a href="perfil-usuario.html" class="menu-button" aria-label="Acceder a mi cuenta">
@@ -44,6 +46,7 @@
                 </a>
             </li>
         </ul>
+        </nav>
     </main>
 
     <nav class="bottom-nav" role="navigation" aria-label="Menú principal">
@@ -55,7 +58,7 @@
                 </a>
             </li>
             <li>
-                <a href="perfil.html" aria-label="Ir a tu perfil de usuario" class="nav-button active">
+                <a href="perfil.html" aria-label="Ir a tu perfil de usuario" aria-current="page" class="nav-button active">
                     <img src="media/icons/person_heart_24dp_007AFF_FILL1_wght500_GRAD0_opsz24.svg" alt="Icono de perfil" class="nav-icon">
                     <span class="nav-text">Perfil</span>
                 </a>

@@ -54,6 +54,7 @@ $userEmail = getUserEmail();
     <link rel="stylesheet" href="CSS/celador-pacientes.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <div class="dashboard-container">
         <!-- Sidebar -->
         <aside class="sidebar" role="navigation" aria-label="Menú principal">
@@ -249,6 +250,7 @@ $userEmail = getUserEmail();
         </div>
     </div>
 
+    <script src="js/accessible-notifications.js"></script>
     <script src="js/celador-pacientes.js"></script>
 </body>
 </html>

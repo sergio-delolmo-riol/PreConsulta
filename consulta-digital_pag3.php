@@ -143,7 +143,7 @@ $celadorInfo = null;
             const evidencia = sessionStorage.getItem('consultaEvidencia') || '';
             
             if (!sintomas) {
-                alert('Error: No se encontraron los datos de la consulta.');
+                showNotification('Error: No se encontraron los datos de la consulta.', 'error', 6000);
                 window.location.href = 'consulta-digital_pag1.php';
                 return;
             }
@@ -179,7 +179,7 @@ $celadorInfo = null;
                     
                     // Mostrar mensaje si hay celador asignado
                     if (result.celador_asignado) {
-                        alert(result.mensaje);
+                        showNotification(result.mensaje, 'success', 6000);
                     }
                     
                     // Recargar estado de la consulta
@@ -192,13 +192,13 @@ $celadorInfo = null;
                         this.onclick = () => window.location.href = 'index.php';
                     }, 1500);
                 } else {
-                    alert('Error al guardar la consulta: ' + result.error);
+                    showNotification('Error al guardar la consulta: ' + result.error, 'error', 7000);
                     this.disabled = false;
                     this.textContent = 'Confirmar asistencia';
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error al guardar la consulta. Inténtalo de nuevo.');
+                showNotification('Error al guardar la consulta. Inténtalo de nuevo.', 'error', 6000);
                 this.disabled = false;
                 this.textContent = 'Confirmar asistencia';
             }

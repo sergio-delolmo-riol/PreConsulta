@@ -533,55 +533,55 @@ function renderizarHistorial(historial) {
 // INICIAR Y FINALIZAR ATENCIÓN
 // ============================================
 async function iniciarAtencion(idAsignacion) {
-    if (!confirm('¿Deseas iniciar la atención de este paciente?')) return;
+    showConfirm('¿Deseas iniciar la atención de este paciente?', async () => {
+        try {
+            const response = await fetch('api/iniciar_atencion.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id_asignacion: idAsignacion })
+            });
 
-    try {
-        const response = await fetch('api/iniciar_atencion.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id_asignacion: idAsignacion })
-        });
-
-        const data = await response.json();
-        
-        if (data.success) {
-            mostrarNotificacion('Atención iniciada', 'success');
-            location.reload();
-        } else {
-            mostrarNotificacion('Error: ' + data.message, 'error');
+            const data = await response.json();
+            
+            if (data.success) {
+                mostrarNotificacion('Atención iniciada', 'success');
+                location.reload();
+            } else {
+                mostrarNotificacion('Error: ' + data.message, 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            mostrarNotificacion('Error de conexión', 'error');
         }
-    } catch (error) {
-        console.error('Error:', error);
-        mostrarNotificacion('Error de conexión', 'error');
-    }
+    });
 }
 
 async function finalizarAtencion(idAsignacion) {
-    if (!confirm('¿Deseas finalizar la atención de este paciente? Esta acción liberará al paciente de tu asignación.')) return;
+    showConfirm('¿Deseas finalizar la atención de este paciente? Esta acción liberará al paciente de tu asignación.', async () => {
+        try {
+            const response = await fetch('api/finalizar_atencion.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id_asignacion: idAsignacion })
+            });
 
-    try {
-        const response = await fetch('api/finalizar_atencion.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id_asignacion: idAsignacion })
-        });
-
-        const data = await response.json();
-        
-        if (data.success) {
-            mostrarNotificacion('Atención finalizada correctamente', 'success');
-            setTimeout(() => location.reload(), 1500);
-        } else {
-            mostrarNotificacion('Error: ' + data.message, 'error');
+            const data = await response.json();
+            
+            if (data.success) {
+                mostrarNotificacion('Atención finalizada correctamente', 'success');
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                mostrarNotificacion('Error: ' + data.message, 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            mostrarNotificacion('Error de conexión', 'error');
         }
-    } catch (error) {
-        console.error('Error:', error);
-        mostrarNotificacion('Error de conexión', 'error');
-    }
+    });
 }
 
 // ============================================

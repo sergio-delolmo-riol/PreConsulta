@@ -60,6 +60,7 @@ try {
     <link rel="stylesheet" href="CSS/celador-configuracion.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <div class="dashboard-container">
         <!-- Sidebar -->
         <aside class="sidebar" role="navigation" aria-label="Menú principal">

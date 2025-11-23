@@ -31,7 +31,7 @@ function inicializarFormularioBusqueda() {
         const dni = inputDNI.value.trim().toUpperCase();
         
         if (!dni) {
-            alert('Por favor, introduce un DNI');
+            showNotification('Por favor, introduce un DNI', 'warning', 4000);
             return;
         }
         
@@ -63,12 +63,12 @@ async function buscarPaciente(dni) {
             data = JSON.parse(text);
         } catch (parseError) {
             console.error('Error parsing JSON:', text);
-            alert('Error del servidor. Revisa la consola para más detalles.');
+            showNotification('Error del servidor. Revisa la consola para más detalles.', 'error', 6000);
             return;
         }
         
         if (!response.ok) {
-            alert(data.message || 'Error al buscar el paciente');
+            showNotification(data.message || 'Error al buscar el paciente', 'error', 5000);
             mostrarSinResultados();
             return;
         }
@@ -78,12 +78,12 @@ async function buscarPaciente(dni) {
             mostrarPaciente(pacienteActual);
             await cargarHistorial(pacienteActual.id_paciente);
         } else {
-            alert(data.message || 'Paciente no encontrado');
+            showNotification(data.message || 'Paciente no encontrado', 'warning', 5000);
             mostrarSinResultados();
         }
     } catch (error) {
         console.error('Error al buscar paciente:', error);
-        alert('Error de conexión. Intenta de nuevo.');
+        showNotification('Error de conexión. Intenta de nuevo.', 'error', 5000);
         mostrarSinResultados();
     }
 }
@@ -134,23 +134,23 @@ async function cargarHistorial(idPaciente) {
             data = JSON.parse(text);
         } catch (parseError) {
             console.error('Error parsing JSON:', text);
-            alert('Error del servidor al cargar historial. Revisa la consola.');
+            showNotification('Error del servidor al cargar historial. Revisa la consola.', 'error', 6000);
             return;
         }
         
         if (!response.ok) {
-            alert(data.message || 'Error al cargar el historial');
+            showNotification(data.message || 'Error al cargar el historial', 'error', 5000);
             return;
         }
         
         if (data.success) {
             mostrarHistorial(data.data.historial, data.data.total);
         } else {
-            alert(data.message || 'Error al cargar historial');
+            showNotification(data.message || 'Error al cargar historial', 'error', 5000);
         }
     } catch (error) {
         console.error('Error al cargar historial:', error);
-        alert('Error de conexión al cargar historial');
+        showNotification('Error de conexión al cargar historial', 'error', 5000);
     }
 }
 

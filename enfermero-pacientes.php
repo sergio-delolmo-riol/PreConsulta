@@ -56,6 +56,7 @@ try {
     <link rel="stylesheet" href="CSS/celador-pacientes.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <div class="dashboard-container">
         <!-- Sidebar -->
         <aside class="sidebar" role="navigation" aria-label="Menú principal">
@@ -251,6 +252,7 @@ try {
         </div>
     </div>
 
+    <script src="js/accessible-notifications.js"></script>
     <script src="js/enfermero-pacientes.js"></script>
 </body>
 </html>

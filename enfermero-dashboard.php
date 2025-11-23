@@ -94,6 +94,7 @@ try {
     <link rel="stylesheet" href="CSS/enfermero-dashboard.css">
 </head>
 <body class="dashboard-body">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
     <!-- Sidebar -->
     <aside class="sidebar" role="navigation" aria-label="Menú principal">
@@ -143,7 +144,7 @@ try {
         </nav>
 
         <div class="sidebar-footer">
-            <button id="toggle-disponibilidad" class="btn-disponibilidad <?= $enfermeroInfo['disponible'] ? 'activo' : '' ?>" title="Cambiar disponibilidad">
+            <button id="toggle-disponibilidad" class="btn-disponibilidad <?= $enfermeroInfo['disponible'] ? 'activo' : '' ?>" title="Cambiar disponibilidad" aria-pressed="<?= $enfermeroInfo['disponible'] ? 'true' : 'false' ?>" aria-label="Cambiar disponibilidad de trabajo">
                 <img src="media/icons/toggle_on_24dp_FILL0_wght300_GRAD0_opsz24.svg" alt="" class="nav-icon" aria-hidden="true">
                 <span id="disponibilidad-text"><?= $enfermeroInfo['disponible'] ? 'Disponible' : 'No Disponible' ?></span>
             </button>
@@ -182,7 +183,7 @@ try {
             </div>
 
             <div class="top-bar-actions">
-                <button class="icon-button" id="btnNotificaciones" aria-label="Notificaciones">
+                <button class="icon-button" id="btnNotificaciones" aria-label="Notificaciones" aria-haspopup="dialog" aria-expanded="false">
                     <img src="media/icons/notifications_24dp_FILL0_wght300_GRAD0_opsz24.svg" alt="Notificaciones">
                     <span class="badge" id="notificaciones-badge" style="display: none;">0</span>
                 </button>
@@ -192,10 +193,10 @@ try {
             </div>
             
             <!-- Panel de Notificaciones -->
-            <div class="notificaciones-panel" id="notificacionesPanel">
+            <div class="notificaciones-panel" id="notificacionesPanel" role="dialog" aria-labelledby="notificaciones-titulo" aria-hidden="true">
                 <div class="notificaciones-header">
-                    <h3>Notificaciones</h3>
-                    <button class="btn-cerrar-notif" id="btnCerrarNotif">&times;</button>
+                    <h3 id="notificaciones-titulo">Notificaciones</h3>
+                    <button class="btn-cerrar-notif" id="btnCerrarNotif" aria-label="Cerrar panel de notificaciones">&times;</button>
                 </div>
                 <div class="notificaciones-content" id="notificacionesContent">
                     <div class="loading">Cargando notificaciones...</div>
@@ -206,7 +207,7 @@ try {
         <!-- Content Area -->
         <div class="content-wrapper">
             <!-- Left Panel - Paciente Asignado -->
-            <main class="paciente-panel" role="main">
+            <main class="paciente-panel" role="main" id="main-content">
                 <div class="panel-header">
                     <div class="header-top">
                         <h1>Mi Paciente Actual</h1>
@@ -214,9 +215,9 @@ try {
                     </div>
                 </div>
 
-                <div id="paciente-asignado-container" class="paciente-asignado-container">
+                <div id="paciente-asignado-container" class="paciente-asignado-container" role="region" aria-label="Paciente asignado" aria-live="polite">
                     <?php if ($pacienteAsignado): ?>
-                        <div class="paciente-card active" data-episodio="<?= $pacienteAsignado['id_episodio'] ?>">
+                        <div class="paciente-card active" role="article" tabindex="0" aria-label="Información del paciente <?= sanitize($pacienteAsignado['nombre'] . ' ' . $pacienteAsignado['apellidos']) ?>" data-episodio="<?= $pacienteAsignado['id_episodio'] ?>">
                             <div class="card-header">
                                 <h3 class="patient-name"><?= sanitize($pacienteAsignado['nombre'] . ' ' . $pacienteAsignado['apellidos']) ?></h3>
                                 <span class="status-badge <?= getPrioridadClass($pacienteAsignado['id_prioridad'] ?? 3) ?>">
@@ -251,11 +252,11 @@ try {
                 <div class="historial-section">
                     <div class="section-header">
                         <h2>Historial Médico</h2>
-                        <button id="btn-refresh-historial" class="btn-icon-sm" title="Actualizar historial">
+                        <button id="btn-refresh-historial" class="btn-icon-sm" title="Actualizar historial" aria-label="Actualizar historial médico del paciente">
                             <img src="media/icons/refresh_24dp_FILL0_wght300_GRAD0_opsz24.svg" alt="Actualizar">
                         </button>
                     </div>
-                    <div id="historial-content" class="historial-content">
+                    <div id="historial-content" class="historial-content" role="region" aria-label="Historial médico del paciente" aria-live="polite">
                         <div class="empty-state-sm">
                             <p>Selecciona un paciente para ver su historial</p>
                         </div>
@@ -280,6 +281,7 @@ try {
         </div>
     </div>
 
+    <script src="js/accessible-notifications.js"></script>
     <script src="js/enfermero-dashboard.js"></script>
 </body>
 </html>

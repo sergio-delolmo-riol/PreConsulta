@@ -155,7 +155,7 @@ $nombreCorto = explode(' ', $userName)[0] ?? 'Usuario';
                 captureOptions.style.display = 'none';
                 cameraContainer.style.display = 'flex';
             } catch (error) {
-                alert('❌ No se pudo acceder a la cámara. Por favor, asegúrate de que tienes una cámara conectada y has dado permisos.');
+                showNotification('No se pudo acceder a la cámara. Por favor, asegúrate de que tienes una cámara conectada y has dado permisos.', 'error', 7000);
                 console.error('Error accediendo a la cámara:', error);
             }
         });
@@ -218,7 +218,7 @@ $nombreCorto = explode(' ', $userName)[0] ?? 'Usuario';
                     window.location.href = 'consulta-digital_pag3.php';
                 };
                 
-                alert('✅ Evidencia confirmada. Puede continuar al siguiente paso.');
+                showNotification('Evidencia confirmada. Puede continuar al siguiente paso.', 'success');
             }
         });
 

@@ -201,14 +201,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     
                     // Mostrar mensaje
-                    alert(data.message);
+                    showNotification(data.message, 'success', 5000);
                     
                 } else {
-                    alert(data.message || 'Error al cambiar disponibilidad');
+                    showNotification(data.message || 'Error al cambiar disponibilidad', 'error', 5000);
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error al cambiar disponibilidad');
+                showNotification('Error al cambiar disponibilidad', 'error', 5000);
             }
         });
     }
@@ -409,9 +409,9 @@ document.addEventListener('DOMContentLoaded', function() {
             btnFinalizar.addEventListener('click', async function() {
                 const episodioId = this.dataset.episodio;
                 
-                if (confirm('¿Estás seguro de que deseas finalizar esta consulta?')) {
+                showConfirm('¿Estás seguro de que deseas finalizar esta consulta?', async () => {
                     await finalizarConsulta(episodioId);
-                }
+                });
             });
         }
     }
@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             if (!response.ok) {
-                alert('Error al comunicarse con el servidor');
+                showNotification('Error al comunicarse con el servidor', 'error', 5000);
                 return;
             }
             
@@ -441,20 +441,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 data = JSON.parse(text);
             } catch (e) {
                 console.error('Error al parsear respuesta:', text.substring(0, 200));
-                alert('Error al procesar la respuesta del servidor');
+                showNotification('Error al procesar la respuesta del servidor', 'error', 6000);
                 return;
             }
             
             if (data.success) {
-                alert(data.message || 'Consulta finalizada correctamente');
+                showNotification(data.message || 'Consulta finalizada correctamente', 'success', 5000);
                 // Recargar la página para actualizar la lista
-                location.reload();
+                setTimeout(() => location.reload(), 1500);
             } else {
-                alert(data.error || 'Error al finalizar la consulta');
+                showNotification(data.error || 'Error al finalizar la consulta', 'error', 5000);
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al finalizar la consulta');
+            showNotification('Error al finalizar la consulta', 'error', 5000);
         }
     }
     
@@ -552,17 +552,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const result = await response.json();
             
             if (result.success) {
-                alert('Prioridad actualizada correctamente');
+                showNotification('Prioridad actualizada correctamente', 'success', 5000);
                 // Recargar la consulta para mostrar la nueva prioridad
                 cargarDetallesConsulta(episodioId);
                 // Recargar la lista de consultas
-                location.reload();
+                setTimeout(() => location.reload(), 1500);
             } else {
-                alert('Error al cambiar prioridad: ' + result.message);
+                showNotification('Error al cambiar prioridad: ' + result.message, 'error', 6000);
             }
         } catch (error) {
             console.error('Error al cambiar prioridad:', error);
-            alert('Error al comunicarse con el servidor');
+            showNotification('Error al comunicarse con el servidor', 'error', 5000);
         }
     }
     

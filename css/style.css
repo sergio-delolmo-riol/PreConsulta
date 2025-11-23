@@ -28,6 +28,26 @@ body {
     border: 0;
 }
 
+/* Skip link para accesibilidad WCAG */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #007AFF;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 100;
+    border-radius: 0 0 4px 0;
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid #000;
+    outline-offset: 2px;
+}
+
 /* Encabezado Principal */
 .main-header {
     padding: 20px;
@@ -1778,6 +1798,244 @@ input[type="text"]::-webkit-contacts-auto-fill-button {
     min-width: 40px;
     min-height: 40px;
     z-index: 10;
+}
+
+/* ========================================
+   SISTEMA DE NOTIFICACIONES ACCESIBLES
+   Compatible con WCAG 2.1 AA
+   ======================================== */
+
+.notifications-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+    pointer-events: none;
+}
+
+.notification {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+    border-left: 4px solid;
+    min-width: 300px;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.notification.hide {
+    opacity: 0;
+    transform: translateX(400px);
+}
+
+.notification-success {
+    border-left-color: #34c759;
+    background: linear-gradient(to right, rgba(52, 199, 89, 0.1), white);
+}
+
+.notification-error {
+    border-left-color: #ff3b30;
+    background: linear-gradient(to right, rgba(255, 59, 48, 0.1), white);
+}
+
+.notification-warning {
+    border-left-color: #ff9500;
+    background: linear-gradient(to right, rgba(255, 149, 0, 0.1), white);
+}
+
+.notification-info {
+    border-left-color: #007aff;
+    background: linear-gradient(to right, rgba(0, 122, 255, 0.1), white);
+}
+
+.notification-content {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.notification-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.notification-message {
+    flex: 1;
+    font-size: 1rem;
+    color: #1a1a1a;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 1.5rem;
+    line-height: 1;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-close:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #000;
+}
+
+.notification-close:focus {
+    outline: 3px solid rgba(0, 122, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* Diálogo de confirmación accesible */
+.notification-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.notification-dialog.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.notification-dialog-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.notification-dialog-content {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.notification-dialog.show .notification-dialog-content {
+    transform: scale(1);
+}
+
+.dialog-title {
+    margin: 0 0 12px 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.dialog-message {
+    margin: 0 0 24px 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.dialog-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-dialog {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 44px;
+}
+
+.btn-cancel {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.btn-cancel:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-cancel:focus {
+    outline: 3px solid rgba(0, 122, 255, 0.5);
+    outline-offset: 2px;
+}
+
+.btn-confirm {
+    background-color: #007aff;
+    color: white;
+}
+
+.btn-confirm:hover {
+    background-color: #0066cc;
+}
+
+.btn-confirm:focus {
+    outline: 3px solid rgba(0, 122, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .notifications-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+
+    .notification {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .notification-dialog-content {
+        width: calc(100% - 40px);
+        margin: 20px;
+    }
 }
 
 .password-toggle:hover {

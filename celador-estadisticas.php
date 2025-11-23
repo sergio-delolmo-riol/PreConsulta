@@ -68,6 +68,7 @@ $userEmail = getUserEmail();
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body class="dashboard-body">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
     <div class="dashboard-container">
         <!-- Sidebar -->
@@ -253,6 +254,7 @@ $userEmail = getUserEmail();
         </div>
     </div>
 
+    <script src="js/accessible-notifications.js"></script>
     <script src="js/celador-estadisticas.js"></script>
 </body>
 </html>

@@ -434,13 +434,13 @@ $hasMissingData = empty($dni) || empty($direccion) || empty($condiciones) || emp
                         floatingBtn.style.display = 'none';
                     }
 
-                    alert('✅ Datos guardados correctamente');
+                    showNotification('Datos guardados correctamente', 'success');
                 } else {
-                    alert('❌ Error: ' + result.error);
+                    showNotification('Error: ' + result.error, 'error', 6000);
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('❌ Error al guardar los datos. Inténtalo de nuevo.');
+                showNotification('Error al guardar los datos. Inténtalo de nuevo.', 'error');
             }
         });
 

@@ -32,12 +32,12 @@ async function cargarEstadisticas() {
             data = JSON.parse(text);
         } catch (parseError) {
             console.error('Error parsing JSON:', text);
-            alert('Error del servidor. Revisa la consola para más detalles.');
+            showNotification('Error del servidor. Revisa la consola para más detalles.', 'error', 6000);
             return;
         }
         
         if (!response.ok) {
-            alert(data.message || 'Error al cargar estadísticas');
+            showNotification(data.message || 'Error al cargar estadísticas', 'error', 5000);
             return;
         }
         
@@ -47,11 +47,11 @@ async function cargarEstadisticas() {
             crearGraficoPorPrioridad(data.data.consultasPorPrioridad);
             crearGraficoPorDia(data.data.consultasPorDia);
         } else {
-            alert(data.message || 'Error al cargar estadísticas');
+            showNotification(data.message || 'Error al cargar estadísticas', 'error', 5000);
         }
     } catch (error) {
         console.error('Error al cargar estadísticas:', error);
-        alert('Error de conexión al cargar estadísticas');
+        showNotification('Error de conexión al cargar estadísticas', 'error', 5000);
     }
 }
 
